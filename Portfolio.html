@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="nb">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portefølje — Skisse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand">
+        <span class="mark">~</span>
+        <span>Simen <span class="dom">/portefølje</span></span>
+      </a>
+      <nav class="links">
+        <a href="#about">Om</a>
+        <a href="#tech">Teknologi</a>
+        <a href="#work">Utvalgt</a>
+        <a href="#story">Reise</a>
+        <a href="#projects">Prosjekter</a>
+        <a href="#contact" class="cta">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO / ABOUT ============ -->
+    <section class="hero" id="about">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="reveal">
+            <h1 style="color: rgb(0, 0, 0)">Simen Emil Wiig Holmen</h1>
+            <div class="role" style="width: 610px">
+              <b>Master i informasjonssystemer</b> <span class="sep">/</span>
+              <span>Student</span> <span class="sep">/</span>
+              <span>Kristiansand, Norge</span> <span class="sep">
+              </span>
+              <span>
+              </span>
+            </div>
+            <p class="lede">Jeg er en masterstudent på informasjonssystemer ved UiA med interesser for utvikling, GIS, ledelse og problemløsning innen IT. Her får du en oversikt over alle prosjektene jeg har jobbet med så langt, og hvilke teknologier jeg har lært gjennom dem. I tillegg kan du også se reisen min for å få en oversikt over hva jeg har gjort og hva jeg har lært, både innenfor og utenfor skolen.</p>
+            <div class="actions">
+              <a href="#work" class="btn primary">Se prosjektene mine <span class="arr">→</span></a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="btn btn-li"><img alt="LinkedIn"
+                  loading="lazy" src="https://skillicons.dev/icons?i=linkedin" />LinkedIn</a>
+              <a href="https://github.com/simholmen" target="_blank" rel="noopener" class="btn btn-li"><img alt="GitHub"
+                  loading="lazy" src="https://skillicons.dev/icons?i=github" />GitHub</a>
+            </div>
+          </div>
+          <div class="hero-photo-wrap reveal">
+            <img class="hero-photo" style="width: 400px" src="assets/personal/portrait-web.jpg"
+              alt="Portrett av Simen Emil Wiig Holmen" />
+            <div class="chip" id="techChip" style="border-radius: 12px; padding: 0px">
+              <div class="ic"><img id="techChipIcon" alt="" loading="lazy" src="https://skillicons.dev/icons?i=html" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECHNOLOGIES ============ -->
+    <section id="tech" class="mapsec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label"><span class="num">01</span> &nbsp;Teknologi</span>
+          <h2>Verktøy jeg har erfaring med</h2>
+          <p>Her er de ulike teknologiene jeg har erfaring med, men jeg er også alltid interessert i å lære nye!</p>
+          <div class="lvl-legend">
+            <span class="ll-title">Erfaring</span>
+            <span class="ll-item"><span class="sw lvl-1"></span>1–2 prosjekter</span>
+            <span class="ll-item"><span class="sw lvl-2"></span>3–4 prosjekter</span>
+            <span class="ll-item"><span class="sw lvl-3"></span>5+ prosjekter</span>
+          </div>
+        </div>
+        <div class="skill-groups"></div>
+      </div>
+    </section>
+
+    <!-- ============ HIGHLIGHTED PROJECTS ============ -->
+    <section id="work">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label"><span class="num">02</span> &nbsp;Utvalgt arbeid</span>
+          <h2>Utvalgte prosjekter</h2>
+          <p>Her er noen av mine utvalgte prosjekter som jeg er mest stolt av:</p>
+        </div>
+        <div class="feat"></div>
+      </div>
+    </section>
+
+    <!-- ============ STORY / ROUTE MAP ============ -->
+    <section id="story" class="mapsec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label"><span class="num">03</span> &nbsp;Ruten</span>
+          <h2>Hvordan jeg kom hit</h2>
+          <p>Her er alt jeg har gjort til nå.</p>
+        </div>
+
+        <div class="journey" id="journey">
+          <svg class="route" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <mask id="routeMask">
+                <path id="routeMaskPath" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </mask>
+            </defs>
+            <path class="route-bg"></path>
+            <g mask="url(#routeMask)">
+              <path class="route-fg"></path>
+            </g>
+            <circle class="traveler-pulse" r="6"></circle>
+            <circle class="traveler" r="6"></circle>
+          </svg>
+
+          <div class="stops">
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Høst 2023</span>
+              <div class="stop-card">
+                <div class="wp">◎ Første semester<span class="wp-date"> · Høst 2023</span></div>
+                <h4>Mitt første semester innen IT</h4>
+                <p>Her startet jeg på en bachelor i IT og Informasjonssystemer på UiA. Det var en rolig start med lite
+                  programmering, men fungerte som en god introduksjon til fagområdet.</p>
+                <div class="stop-photo ph"><span>bilde fra semesteret</span></div>
+                <div class="stop-emner">
+                  <span class="stop-sub">Emner</span>
+                  <div class="emner-list"><span class="has-tip"
+                      data-tip="The role of digitalization within future societies">IS-100</span><span class="has-tip"
+                      data-tip="Digital Interaction Design">IS-104</span><span class="has-tip"
+                      data-tip="Introduksjon til samskaping i informasjonsystemer">IS-114</span></div>
+                </div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="HTML"><img alt="HTML" loading="lazy"
+                      src="https://skillicons.dev/icons?i=html" /></span>
+                  <span class="stech has-tip" data-tip="CSS"><img alt="CSS" loading="lazy"
+                      src="https://skillicons.dev/icons?i=css" /></span>
+                  <span class="stech has-tip" data-tip="Git"><img alt="Git" loading="lazy"
+                      src="https://skillicons.dev/icons?i=git" /></span>
+                  <span class="stech has-tip" data-tip="Figma"><img alt="Figma" loading="lazy"
+                      src="https://skillicons.dev/icons?i=figma" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Vår 2024</span>
+              <div class="stop-card">
+                <div class="wp">◎ Andre semester<span class="wp-date"> · Vår 2024</span></div>
+                <h4>Mitt andre semester</h4>
+                <p>Det andre semesteret besto også mye av introduksjoner og teoretiske emner. Her ble jeg blant annet
+                  introdusert til objektorientert programmering i Java, Docker og terminalen. Jeg fikk også en stilling
+                  som studentmentor og læringsassistent i IS-104, hvor jeg fikk muligheten til å ta TFL-129 dette
+                  semesteret som forberedelse på mentorrollen til neste år.</p>
+                <div class="stop-photo ph"><span>bilde fra semesteret</span></div>
+                <div class="stop-emner">
+                  <span class="stop-sub">Emner</span>
+                  <div class="emner-list"><span class="has-tip"
+                      data-tip="Datakommunikasjon og operativsystemer">IS-105</span><span class="has-tip"
+                      data-tip="Objektorientert programmering">IS-110</span><span class="has-tip"
+                      data-tip="Bedriftsøkonomi for IT-Studenter">BE-107</span><span class="has-tip"
+                      data-tip="Organizational Theory for IT Students">ORG-110</span><span class="has-tip"
+                      data-tip="Innføringsemne for studentmentorer">TFL-129</span></div>
+                </div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="Java"><img alt="Java" loading="lazy"
+                      src="https://skillicons.dev/icons?i=java" /></span>
+                  <span class="stech has-tip" data-tip="Docker"><img alt="Docker" loading="lazy"
+                      src="https://skillicons.dev/icons?i=docker" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Sommer 2024</span>
+              <div class="stop-card">
+                <div class="wp">◎ Første prosjekt<span class="wp-date"> · Sommer 2024</span></div>
+                <h4>Mitt første eget prosjekt</h4>
+                <p>Sommeren etter mitt andre semester var første gangen jeg ble interessert i faget på ekte. Før dette
+                  hadde jeg bare lært det jeg måtte, men nå brukte jeg sommeren til å utforske utvikling på egenhånd, og
+                  fant ut dette var egentlig ganske gøy. Jeg lagde min egen nettside for noen venner, hvor vi kunne lese
+                  informasjon om et spill. Nettsiden besto av HTML, CSS og JavaScript, og var veldig enkel da den ble
+                  laget for første gang.</p>
+                <div class="stop-photo ph"><span>bilde fra nettsiden</span></div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="HTML"><img alt="HTML" loading="lazy"
+                      src="https://skillicons.dev/icons?i=html" /></span>
+                  <span class="stech has-tip" data-tip="CSS"><img alt="CSS" loading="lazy"
+                      src="https://skillicons.dev/icons?i=css" /></span>
+                  <span class="stech has-tip" data-tip="JavaScript"><img alt="JavaScript" loading="lazy"
+                      src="https://skillicons.dev/icons?i=js" /></span>
+                  <span class="stech has-tip" data-tip="Git"><img alt="Git" loading="lazy"
+                      src="https://skillicons.dev/icons?i=git" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Høst 2024</span>
+              <div class="stop-card">
+                <div class="wp">◎ Tredje semester<span class="wp-date"> · Høst 2024</span></div>
+                <h4>Starten av andre året på studiet</h4>
+                <p>På det tredje semesteret på IT-studiet hadde vi et stort prosjekt på tvers av alle tre emnene.
+                  Prosjektet gikk ut på å lage en crowdsourcing-løsning for Kartverket til å rapportere inn feil i
+                  kartet. Målet var å utvikle ideer til hvordan Kartverket kan forbedre sin eksisterende løsning. Dette
+                  var første gangen jeg fikk mulighet til å jobbe med flere forskjellige teknologier på en gang, og det
+                  å jobbe i et skikkelig prosjekt.<br><br>I tillegg var jeg også mentor og læringsassistent i IS-104,
+                  hvor jeg ble introdusert til det å lede og lære bort. Mentorrollen besto mye av å hjelpe studentene
+                  både faglig og sosialt, ved hjelp av veiledning i gruppetimer og felles mentormøter.</p>
+                <div class="stop-photo ph"><span>bilde av forside til prosjektet</span></div>
+                <div class="stop-emner">
+                  <span class="stop-sub">Emner</span>
+                  <div class="emner-list"><span class="has-tip"
+                      data-tip="Systemanalyse og systemutvikling">IS-200</span><span class="has-tip"
+                      data-tip="Datamodellering og databasesystemer">IS-201</span><span class="has-tip"
+                      data-tip="Programmeringsprosjekt">IS-202</span></div>
+                </div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="HTML"><img alt="HTML" loading="lazy"
+                      src="https://skillicons.dev/icons?i=html" /></span>
+                  <span class="stech has-tip" data-tip="CSS"><img alt="CSS" loading="lazy"
+                      src="https://skillicons.dev/icons?i=css" /></span>
+                  <span class="stech has-tip" data-tip="Tailwind"><img alt="Tailwind" loading="lazy"
+                      src="https://skillicons.dev/icons?i=tailwind" /></span>
+                  <span class="stech has-tip" data-tip=".NET"><img alt=".NET" loading="lazy"
+                      src="https://skillicons.dev/icons?i=dotnet" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Vår 2025</span>
+              <div class="stop-card">
+                <div class="wp">◎ Fjerde semester<span class="wp-date"> · Vår 2025</span></div>
+                <h4>Fjerde semester</h4>
+                <p>Det fjerde semesteret besto av valgemner, hvor jeg valgte å ta de mest tekniske emnene. Her lærte jeg
+                  blant annet mye om moderne forskjellige teknologier, databaser og GIS. I tillegg ble jeg også stemt
+                  inn som styremedlem i NITO Studentene i Kristiansand, som var starten på reisen min i NITO.</p>
+                <div class="stop-photo ph"><img alt="NITO Studentene Kristiansand" loading="lazy"
+                    src="assets/personal/semester4-nito.jpg" /></div>
+                <div class="stop-emner">
+                  <span class="stop-sub">Emner</span>
+                  <div class="emner-list"><span class="has-tip"
+                      data-tip="Geografiske Informasjonssystemer, AI og IoT; Introduksjon og Anvendelse">IS-218</span><span
+                      class="has-tip" data-tip="Videregående databasesystemer">IS-309</span><span class="has-tip"
+                      data-tip="Algorithms and Data Structures">IS-211</span><span class="has-tip"
+                      data-tip="Tjenestedesign og forretningsmodeller">IS-112</span></div>
+                </div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="PostgreSQL"><img alt="PostgreSQL" loading="lazy"
+                      src="https://skillicons.dev/icons?i=postgres" /></span>
+                  <span class="stech has-tip" data-tip="Python"><img alt="Python" loading="lazy"
+                      src="https://skillicons.dev/icons?i=python" /></span>
+                  <span class="stech has-tip" data-tip="React"><img alt="React" loading="lazy"
+                      src="https://skillicons.dev/icons?i=react" /></span>
+                  <span class="stech has-tip" data-tip="Figma"><img alt="Figma" loading="lazy"
+                      src="https://skillicons.dev/icons?i=figma" /></span>
+                  <span class="stech has-tip" data-tip="Supabase"><img alt="Supabase" loading="lazy"
+                      src="https://skillicons.dev/icons?i=supabase" /></span>
+                  <span class="stech has-tip" data-tip="Git"><img alt="Git" loading="lazy"
+                      src="https://skillicons.dev/icons?i=git" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Sommer 2025</span>
+              <div class="stop-card">
+                <div class="wp">◎ Egne prosjekter<span class="wp-date"> · Sommer 2025</span></div>
+                <h4>En sommer med egne prosjekter</h4>
+                <p>Denne sommeren brukte jeg på å utvikle flere egne prosjekter, blant annet en React-app for
+                  porteføljen min og en Python-app for padel-turneringer som jeg har arrangert sammen med
+                  NITO-studentene Kristiansand i etterkant. Jeg fortsatte også videre med den første nettsiden jeg lagde
+                  forrige sommer, med å blant annet konfigurere eget domene og legge til henting av data fra spillets
+                  API for å vise statistikk. Fokuset denne sommeren var å bli bedre på å kode uten å bruke AI, så
+                  prosjektene her var mindre, men også uten AI som hjelpemiddel.</p>
+                <div class="stop-photo ph"><img alt="Padel-turnering med eget poengsystem" loading="lazy"
+                    src="assets/personal/sommer2025-padel.jpg" /></div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="Python"><img alt="Python" loading="lazy"
+                      src="https://skillicons.dev/icons?i=python" /></span>
+                  <span class="stech has-tip" data-tip="React"><img alt="React" loading="lazy"
+                      src="https://skillicons.dev/icons?i=react" /></span>
+                  <span class="stech has-tip" data-tip="JavaScript"><img alt="JavaScript" loading="lazy"
+                      src="https://skillicons.dev/icons?i=js" /></span>
+                  <span class="stech has-tip" data-tip="HTML"><img alt="HTML" loading="lazy"
+                      src="https://skillicons.dev/icons?i=html" /></span>
+                  <span class="stech has-tip" data-tip="CSS"><img alt="CSS" loading="lazy"
+                      src="https://skillicons.dev/icons?i=css" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Høst 2025</span>
+              <div class="stop-card">
+                <div class="wp">◎ Femte semester<span class="wp-date"> · Høst 2025</span></div>
+                <h4>Femte semester</h4>
+                <p>Det femte semesteret av bacheloren gikk mest ut på å gjøre klar til bacheloroppgaven. Sammen med
+                  bachelorgruppen min utviklet vi vår egen gruppe-CV som vi brukte for å søke etter bacheloroppgaver. I
+                  tillegg jobbet jeg også som mentor og læringsassistent igjen. Jeg ble også valgt til
+                  arrangementansvarlig i NITO Studentene Kristiansand, hvor jeg fikk muligheten til å gjøre mye gøy,
+                  blant annet padel-turnering med eget utviklet poengsystem og holde et Figma-kurs for studentene på
+                  første året.</p>
+                <div class="stop-photo ph"><img alt="Refresh IT / CV-arrangement" loading="lazy"
+                    src="assets/personal/semester5-cv.jpg" /></div>
+                <div class="stop-emner">
+                  <span class="stop-sub">Emner</span>
+                  <div class="emner-list"><span class="has-tip" data-tip="Praksisprosjekt">IS-302</span><span
+                      class="has-tip" data-tip="Webprogrammering i PHP">IS-115</span><span class="has-tip"
+                      data-tip="Data Science Applications">IS-216</span><span class="has-tip"
+                      data-tip="Prosjektgjennomføring">IS-310</span></div>
+                </div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="PHP"><img alt="php" loading="lazy"
+                      src="https://skillicons.dev/icons?i=php" /></span>
+                  <span class="stech has-tip" data-tip="MySQL"><img alt="MySQL" loading="lazy"
+                      src="https://skillicons.dev/icons?i=mysql" /></span>
+                  <span class="stech has-tip" data-tip="WordPress"><img alt="wordpress" loading="lazy"
+                      src="https://skillicons.dev/icons?i=wordpress" /></span>
+                  <span class="stech has-tip" data-tip="HTML"><img alt="HTML" loading="lazy"
+                      src="https://skillicons.dev/icons?i=html" /></span>
+                  <span class="stech has-tip" data-tip="CSS"><img alt="CSS" loading="lazy"
+                      src="https://skillicons.dev/icons?i=css" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Vår 2026</span>
+              <div class="stop-card">
+                <div class="wp">◎ Sjette semester<span class="wp-date"> · Vår 2026</span></div>
+                <h4>Bacheloroppgaven</h4>
+                <p>Det siste semesteret av bacheloren gikk til bacheloroppgaven: en kildesorteringsapp med gamifisering
+                  og maskinlæring. Brukeren tar bilde av en gjenstand, en ML-modell gjenkjenner materialet, og poeng og
+                  nivåer motiverer til å sortere mer. Oppgaven ble levert med karakteren A.</p>
+                <div class="stop-gallery" data-sgallery>
+                  <div class="sg-viewport">
+                    <div class="sg-track">
+                      <div class="sg-slide"><img alt="NITO Studentene Kristiansand" loading="lazy"
+                          src="assets/personal/semester6-nito.jpg" /></div>
+                      <div class="sg-slide"><img alt="Bachelorutdeling foran UiA" loading="lazy"
+                          src="assets/personal/semester6-bachelor2.jpg" /></div>
+                    </div>
+                  </div>
+                  <button class="sg-btn sg-prev" type="button" aria-label="Forrige bilde">‹</button>
+                  <button class="sg-btn sg-next" type="button" aria-label="Neste bilde">›</button>
+                  <div class="sg-dots" role="tablist" aria-label="Bilder"></div>
+                </div>
+                <span class="stop-sub">Teknologier</span>
+                <div class="stop-tech">
+                  <span class="stech has-tip" data-tip="Kotlin"><img alt="Kotlin" loading="lazy"
+                      src="https://skillicons.dev/icons?i=kotlin" /></span>
+                  <span class="stech has-tip" data-tip="TensorFlow"><img alt="TensorFlow" loading="lazy"
+                      src="https://skillicons.dev/icons?i=tensorflow" /></span>
+                  <span class="stech has-tip" data-tip="Spring Boot"><img alt="Spring Boot" loading="lazy"
+                      src="https://skillicons.dev/icons?i=spring" /></span>
+                  <span class="stech has-tip" data-tip="PostgreSQL"><img alt="PostgreSQL" loading="lazy"
+                      src="https://skillicons.dev/icons?i=postgres" /></span>
+                  <span class="stech has-tip" data-tip="Git"><img alt="Git" loading="lazy"
+                      src="https://skillicons.dev/icons?i=git" /></span>
+                  <span class="stech has-tip" data-tip="Figma"><img alt="Figma" loading="lazy"
+                      src="https://skillicons.dev/icons?i=figma" /></span>
+                  <span class="stech has-tip" data-tip="Docker"><img alt="Docker" loading="lazy"
+                      src="https://skillicons.dev/icons?i=docker" /></span>
+                  <span class="stech has-tip" data-tip="Kubernetes"><img alt="Kubernetes" loading="lazy"
+                      src="https://skillicons.dev/icons?i=kubernetes" /></span>
+                  <span class="stech has-tip" data-tip="Azure"><img alt="Azure" loading="lazy"
+                      src="https://skillicons.dev/icons?i=azure" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop stop-dest">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Sommer 2026</span>
+              <div class="stop-card">
+                <div class="wp">&#9873; akkurat nå<span class="wp-date"> · Sommer 2026</span></div>
+                <h4>Det jeg gjør nå</h4>
+                <p>Akkurat nå er jeg ferdig med bachelorgraden og fortsetter på master i informasjonssystemer ved UiA.
+                  Før det skal jeg være med på et spennende sommerprosjekt hos Geodata</p>
+                <img class="stop-img" alt="Sommerprosjekt hos Geodata" loading="lazy" src="assets/personal/geodata-sommer-2026.jpg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ALL PROJECTS ============ -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label"><span class="num">04</span> &nbsp;Arkiv</span>
+          <h2>Alle prosjekter</h2>
+          <p>Dette er en liste over alle prosjektene jeg her gjort så langt. Prosjektene kan sorteres og filtreres etter
+            teknologi, dato, stjerner og alfabetisk. Stjernene er en rating basert på kompleksitet og resultat, et
+            prosjekt med mange stjerner er mer kompleks og har et bedre resultat enn et prosjekt med få stjerner.</p>
+        </div>
+        <div class="proj-toolbar reveal">
+          <div class="pt-group">
+            <span class="pt-label">Sorter</span>
+            <div class="pt-seg" id="sortSeg">
+              <button type="button" class="pt-btn active" data-sort="date">Dato</button>
+              <button type="button" class="pt-btn" data-sort="rating">Stjerner</button>
+              <button type="button" class="pt-btn" data-sort="name">A–Å</button>
+            </div>
+          </div>
+          <div class="pt-group pt-filter">
+            <span class="pt-label">Teknologi</span>
+            <div class="pt-techs" id="techFilter"></div>
+          </div>
+        </div>
+        <div class="proj-list"></div>
+        <div class="proj-empty" id="projEmpty">Ingen prosjekter matcher filteret.</div>
+      </div>
+    </section>
+
+    <!-- project detail modal -->
+    <div class="proj-modal" id="projModal" aria-hidden="true">
+      <div class="backdrop"></div>
+      <div class="dialog" role="dialog" aria-modal="true">
+        <button class="x" type="button" aria-label="Lukk">✕</button>
+        <div class="pd-body"></div>
+      </div>
+    </div>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <div class="contact-card reveal">
+          <span class="label"><span class="num">05</span> &nbsp;Kontakt</span>
+          <h2>Ta kontakt!</h2>
+          <p>Jeg prater gjerne om prosjekter, internships eller interessante problemer. Send meg en melding på LinkedIn!
+          </p>
+          <div class="contact-actions">
+            <a href="/cdn-cgi/l/email-protection#53203a3e363d7d363e3a3f7d243a3a3413343e323a3f7d303c3e" class="btn light"><span class="__cf_email__" data-cfemail="d3a0babeb6bdfdb6bebabffda4babab493b4beb2babffdb0bcbe">[email&#160;protected]</span></a>
+            <a href="#" class="btn ghost">GitHub ↗</a>
+            <a href="#" class="btn ghost">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="foot">
+    <div class="wrap foot-inner">
+      <div class="l">© 2026 Simen Emil Wiig Holmen</div>
+      <div class="r">
+        <a href="#about">Til toppen ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="projects-data.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
