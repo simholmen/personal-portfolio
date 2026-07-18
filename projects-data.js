@@ -62,7 +62,6 @@ var PROJECTS = [
     category: 'Sommerprosjekt', year: 'Sommer 2025', yearSort: 2025.5, rating: 2,
     tech: ['html', 'css', 'python'],
     description: ['Dette sommerprosjektet gikk ut på å lage et Python-program for å håndtere logikken til en padel-turnering. Vi i NITO-studentene Kristiansand arrangerer turneringer i padel, og for å slippe å betale for en trener eller en app for å håndtere en turnering, kan vi like gjerne kode en selv.'],
-    learned: ['Forståelse av Python', 'Programmering uten hjelpemidler'],
     links: [{ label: 'Kildekode ↗', href: 'https://github.com/simholmen/padelpython', external: true }]
   },
   {
@@ -71,7 +70,6 @@ var PROJECTS = [
     category: 'Sommerprosjekt', year: 'Sommer 2025', yearSort: 2025.5, rating: 1,
     tech: ['html', 'css', 'js', 'react'],
     description: ['Dette sommerprosjektet gikk ut på å lage en portefølje for å vise frem arbeidet jeg har gjort gjennom studiet. Porteføljen ble laget med HTML, CSS, JavaScript og React som et eksempel på hva jeg kan.'],
-    learned: ['Forståelse av React-rammeverket', 'Bruk av HTML og CSS', 'Implementering av interaktive elementer med JavaScript'],
     links: [{ label: 'Kildekode ↗', href: 'https://github.com/simholmen/portfolio', external: true }]
   },
   {
@@ -86,15 +84,21 @@ var PROJECTS = [
     grade: 'A',
     learned: ['Bruk av QGIS for å bearbeide GIS-data', 'Trening og bruk av KI', 'Integrering av PostGIS for lagring og behandling av spatial data', 'Python for backend', 'Ulike karttjenester som Leaflet'],
     links: [
-      { label: 'Se på YouTube ↗', href: 'https://youtu.be/qYw4H6qkzm0', external: true },
+      { label: 'Se demo på YouTube ↗', href: 'https://youtu.be/qYw4H6qkzm0', external: true },
       { label: 'Kildekode ↗', href: 'https://github.com/simholmen/IS218-gruppe5-oppgave5', external: true },
-      { label: '↓ Last ned rapport (PDF)', href: 'assets/Semesterprosjekt-GIS-KI-rapport.pdf', download: true, className: 'pd-download' }
+      { label: '↓ Last ned rapport (PDF)', href: 'assets/pdf/IS218.pdf', download: true, className: 'pd-download' }
     ],
     featured: {
       order: 2, idxLabel: '02 — Semesterprosjekt (IS-218)',
       headline: 'Semesterprosjekt innen GIS og KI',
       blurb: 'En løsning som kombinerer GIS og KI for samfunnsberedskap. Gruppen min undersøkte om Kristiansand er godt nok dekket av beredskapstjenester, og utviklet et verktøy som finner den raskeste ruten til nærmeste politi, brann og helse — basert på en KI-modell som markerer bygninger fra flyfoto.',
-      media: { type: 'photo', src: 'assets/projects/gis-presentasjon.jpg', alt: 'Presentasjon av GIS- og KI-prosjektet' }
+      media: {
+        type: 'gallery', pages: [
+          [{ type: 'photo', src: 'assets/projects/shortestpath.png', alt: 'Bildedemo' }],
+          [{ type: 'photo', src: 'assets/projects/gis-presentasjon.jpg', alt: 'Presentasjon av GIS- og KI-prosjektet' }],
+          [{ type: 'photo', src: 'assets/projects/bygninger.png', alt: 'Bygninger markert av AI' }],
+        ]
+      }
     }
   },
   {
@@ -128,7 +132,7 @@ var PROJECTS = [
     grade: 'A',
     learned: ['Maskinlæring i praksis', 'Mobilutvikling med Kotlin', 'Backend med Spring Boot'],
     links: [
-      { label: 'Se demo på YouTube ↗', href: '#', external: true, prefixPlay: true },
+      { label: 'Se demo på YouTube ↗', href: 'https://youtube.com/shorts/AtxuFNZmr1o', external: true, prefixPlay: true },
       { label: 'Video av prosessen ↗', href: 'https://youtu.be/b1CCtJAA7Gk', external: true, prefixPlay: true }
     ],
     featured: {
@@ -148,7 +152,7 @@ var PROJECTS = [
     id: 'algard', title: 'Kartprosjekt med Ålgård turstilag', school: false,
     teaser: 'Digital kartlegging av turstier for Ålgård turstilag.',
     category: 'Samarbeidsprosjekt', year: '2026', yearSort: 2026, rating: 3,
-    tech: ['html', 'css', 'js', 'postgresql', 'postgis', 'git', 'react', 'qgis'],
+    tech: ['html', 'css', 'js', 'postgresql', 'postgis', 'git', 'react'],
     description: ['Et kartprosjekt i samarbeid med Ålgård turstilag for å kartlegge og presentere turstier digitalt, med fokus på GIS og en brukervennlig visning av kartdata.'],
     learned: ['Arbeid med kartdata og GIS', 'Samarbeid med ekstern organisasjon'],
     links: [{ label: 'Kildekode ↗', href: '#', external: true }],
@@ -202,5 +206,13 @@ var PROJECTS = [
     description: ['Et webprosjekt bygd med PHP, med dynamisk innhold og kobling mot en relasjonsdatabase.'],
     learned: ['Server-side utvikling med PHP', 'Kobling mot database'],
     links: [{ label: 'Kildekode ↗', href: '#', external: true }]
-  }
+  },
+  {
+    id: 'gruppecv', title: 'Bachelorgruppe CV', school: true,
+    teaser: 'Felles CV-netttside for å bachelorgruppen.',
+    category: 'Personlig', year: 'Sommer 2026', yearSort: 2025.9, rating: 1,
+    tech: ['html', 'css', 'js'],
+    description: ['Lagde en gruppe-CV som en del av emnet IS-310. Dette var for å vise frem erfaringene vi har gjort så langt i studiet, foor å skaffe oss en bedrift å skrive bachelorprosjektet hos.'],
+    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
+  },
 ];
