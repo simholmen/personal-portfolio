@@ -22,13 +22,14 @@
 
       function renderFeatMedia(m) {
         if (m.type === 'gallery') {
+          var isSingle = m.pages.every(function (page) { return page.length === 1; });
           var pages = m.pages.map(function (page) {
             var imgs = page.map(function (im) {
               return '<img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" />';
             }).join('');
             return '<div class="fg-page">' + imgs + '</div>';
           }).join('');
-          return '<div class="feat-media feat-gallery" data-gallery>' +
+          return '<div class="feat-media feat-gallery' + (isSingle ? ' fg-single' : '') + '" data-gallery>' +
             '<div class="fg-viewport"><div class="fg-track">' + pages + '</div></div>' +
             '<button class="fg-btn fg-prev" type="button" aria-label="Forrige bilder">‹</button>' +
             '<button class="fg-btn fg-next" type="button" aria-label="Neste bilder">›</button>' +
@@ -279,6 +280,13 @@
       build();
       window.addEventListener('load', build);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+      // lazy-loaded images (stop photos, tech icons) change the journey's
+      // height after build() first runs, which left the route path ending
+      // short of the last card; re-measure whenever the section resizes.
+      if (window.ResizeObserver) {
+        var ro = new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(build, 100); });
+        ro.observe(journey);
+      }
     })();
 
     /* ---- project detail modal ---- */

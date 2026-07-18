@@ -913,6 +913,28 @@
       width: 20px;
     }
 
+    /* galleries with one photo per page (no side-by-side pair) fill the row's
+     full height instead of the single image sitting half-width with an empty
+     gap next to it — same padded, bordered card look as the 2-up galleries */
+    .feat-gallery.fg-single {
+      align-items: stretch;
+    }
+
+    .feat-gallery.fg-single .fg-viewport,
+    .feat-gallery.fg-single .fg-track,
+    .feat-gallery.fg-single .fg-page {
+      height: 100%;
+    }
+
+    .feat-gallery.fg-single .fg-page {
+      grid-template-columns: 1fr;
+    }
+
+    .feat-gallery.fg-single .fg-page img {
+      height: 100%;
+      object-fit: cover;
+    }
+
     /* featured project panel filled with a single photo */
     .feat-media.feat-photo {
       display: block;
@@ -1144,10 +1166,6 @@
       pointer-events: none;
     }
 
-    .stop:last-child {
-      min-height: 248px;
-    }
-
     /* the full-height .stop boxes would otherwise overlap the tall cards' overflow
      and steal hover — only the real interactive children should catch pointers */
     .stop-card,
@@ -1326,6 +1344,10 @@
 
     .stop-photo:has(img) {
       height: auto;
+    }
+
+    .stop-photo:not(:has(img)) {
+      display: none;
     }
 
     .stop-photo span {
@@ -1551,10 +1573,6 @@
     @media (max-width: 760px) {
       .stop {
         min-height: 440px;
-      }
-
-      .stop:last-child {
-        min-height: 300px;
       }
 
       .stop .pin {
