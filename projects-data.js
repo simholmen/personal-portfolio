@@ -1,5 +1,5 @@
 // Project + technology data for the portfolio.
-// Loaded before script.js (see Portfolio.html) so its render logic can use these globals.
+// Loaded before script.js (see index.html) so its render logic can use these globals.
 //
 // To add a project: append an object to PROJECTS below. `tech` is a list of TECH keys —
 // script.js derives every tech-icon row (feat card, archive row, archive detail, and the
