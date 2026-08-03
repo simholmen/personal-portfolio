@@ -85,7 +85,10 @@ var PROJECTS = [
     category: 'Sommerprosjekt', year: 'Sommer 2025', yearSort: 2025.5, rating: 1,
     tech: ['html', 'css', 'js', 'react'],
     description: ['Dette sommerprosjektet gikk ut på å lage en portefølje for å vise frem arbeidet jeg har gjort gjennom studiet. Porteføljen ble laget med HTML, CSS, JavaScript og React som et eksempel på hva jeg kan.'],
-    links: [{ label: 'Kildekode ↗', href: 'https://github.com/simholmen/portfolio', external: true }]
+    links: [
+      { label: 'Kildekode ↗', href: 'https://github.com/simholmen/portfolio', external: true },
+      { label: 'Nettside ↗', href: 'https://portfolioreact-simholmens-projects.vercel.app/', external: true }
+    ],
   },
   {
     id: 'gis-ki', title: 'Semesterprosjekt innen GIS og KI', school: true,
@@ -136,7 +139,10 @@ var PROJECTS = [
     tech: ['html', 'css', 'js', 'claudedesign'],
     description: ['Denne nettsiden, designet og kodet fra bunnen av. Fokus på ren typografi, en interaktiv reise-seksjon med animert rute, og et sorterbart prosjektarkiv.'],
     learned: ['Avansert CSS og layout', 'Interaktivitet med vanilla JavaScript'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
+    links: [
+      { label: 'Kildekode ↗', href: 'https://github.com/simholmen/personal-portfolio', external: true },
+      { label: 'Nettside ↗', href: 'https://simholmen.github.io/personal-portfolio/', external: true }
+    ]
   },
   {
     id: 'bachelor', title: 'Bachelorprosjektet', school: true,
@@ -171,7 +177,10 @@ var PROJECTS = [
     tech: ['html', 'css', 'js', 'postgresql', 'postgis', 'git', 'react', 'supabase'],
     description: ['Et kartprosjekt i samarbeid med Ålgård turstilag for å kartlegge og presentere turstier digitalt, med fokus på GIS og en brukervennlig visning av kartdata.'],
     learned: ['Arbeid med kartdata og GIS', 'Samarbeid med ekstern organisasjon'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }],
+    links: [
+      { label: 'Kildekode ↗', href: 'https://github.com/simholmen/turstilag', external: true },
+      { label: 'Nettside ↗', href: 'https://turstilag.vercel.app', external: true }
+    ],
   },
   {
     id: 'gjesdal', title: 'Praksis hos Gjesdal IL', school: true,
@@ -180,7 +189,7 @@ var PROJECTS = [
     tech: ['html', 'css', 'php', 'wordpress'],
     description: ['Praksisopphold hos Gjesdal IL der jeg bidro med IT- og utviklingsoppgaver for idrettslaget, og fikk erfaring med å løse reelle behov for en organisasjon.'],
     learned: ['Reelle oppgaver for en organisasjon', 'Samarbeid og kommunikasjon'],
-    links: [{ label: 'Mer info ↗', href: '#', external: true }]
+    links: [{ label: 'Mer info ↗', href: 'https://github.com/simholmen/praksisnettside', external: true }]
   },
   {
     id: 'brawlstars', title: 'BrawlStarsNorge wiki', school: false,
@@ -189,15 +198,10 @@ var PROJECTS = [
     tech: ['html', 'css', 'js', 'python'],
     description: ['En wiki-nettside om Brawl Stars for et norsk community, med informasjon om spillet. Mitt aller første egne nettprosjekt, bygd med HTML, CSS og JavaScript.'],
     learned: ['Grunnleggende webutvikling', 'Hvordan hente data fra API', 'Konfigurering av domene', 'Dynamiske markdown-filer'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
-  },
-  {
-    id: 'gruppe-cv', title: 'Gruppe-CV', school: true,
-    teaser: 'Felles CV-nettside som presenterer en gruppes erfaring.',
-    category: 'Skoleprosjekt', year: 'Høst 2025', yearSort: 2025.7, rating: 1,
-    tech: ['html', 'css', 'js'],
-    description: ['En felles CV-nettside for en gruppe, som presenterer medlemmenes erfaring og ferdigheter på en oversiktlig måte.'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
+    links: [
+      { label: 'Kildekode ↗', href: 'https://github.com/simholmen/BrawlStarsNorgeWiki', external: true },
+      { label: 'Nettside ↗', href: 'https://brawlstarsnorge.com', external: true }
+    ]
   },
   {
     id: 'database', title: 'Databaseprosjekt', school: true,
@@ -206,23 +210,26 @@ var PROJECTS = [
     tech: ['postgresql'],
     description: ['Et prosjekt med fokus på datamodellering og relasjonsdatabaser — fra ER-modell og normalisering til ferdige SQL-spørringer.'],
     learned: ['Datamodellering og normalisering', 'SQL og spørringer'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
+    links: [{ label: 'Kildekode ↗', href: 'https://github.com/simholmen/IS309-assignment2', external: true }]
   },
   {
     id: 'php-prosjekt', title: 'PHP-prosjekt', school: true,
     teaser: 'Dynamisk webprosjekt bygd med PHP og en database.',
     category: 'Skoleprosjekt', year: 'Høst 2025', yearSort: 2025.7, rating: 2,
-    tech: ['html', 'css', 'php', 'mysql', 'git'],
+    tech: ['php', 'mysql', 'git'],
     description: ['Et webprosjekt bygd med PHP, med dynamisk innhold og kobling mot en relasjonsdatabase.'],
     learned: ['Server-side utvikling med PHP', 'Kobling mot database'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
+    links: [{ label: 'Kildekode ↗', href: 'https://github.com/Larskyd/chatbot', external: true }]
   },
   {
     id: 'gruppecv', title: 'Bachelorgruppe CV', school: true,
     teaser: 'Felles CV-netttside for å bachelorgruppen.',
-    category: 'Personlig', year: 'Sommer 2026', yearSort: 2025.9, rating: 1,
+    category: 'Skoleprosjekt', year: 'Høst 2025', yearSort: 2025.7, rating: 1,
     tech: ['html', 'css', 'js'],
-    description: ['Lagde en gruppe-CV som en del av emnet IS-310. Dette var for å vise frem erfaringene vi har gjort så langt i studiet, foor å skaffe oss en bedrift å skrive bachelorprosjektet hos.'],
-    links: [{ label: 'Kildekode ↗', href: '#', external: true }]
+    description: ['Lagde en gruppe-CV som en del av emnet IS-310. Dette var for å vise frem erfaringene vi har gjort så langt i studiet, for å skaffe oss en bedrift å skrive bachelorprosjektet hos.'],
+    links: [
+      { label: 'Kildekode ↗', href: 'https://github.com/simholmen/gruppecv', external: true },
+      { label: 'Nettside ↗', href: 'https://simholmen.github.io/gruppecv/', external: true }
+    ]
   },
 ];

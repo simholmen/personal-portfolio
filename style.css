@@ -177,6 +177,59 @@
 
     .nav-toggle {
       display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .nav-toggle span,
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      display: block;
+      width: 16px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ink);
+      transition: transform .18s, opacity .18s;
+    }
+
+    .nav-toggle span {
+      position: relative;
+    }
+
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .nav-toggle span::before {
+      top: -5px;
+    }
+
+    .nav-toggle span::after {
+      top: 5px;
+    }
+
+    .nav-toggle[aria-expanded="true"] span {
+      background: transparent;
+    }
+
+    .nav-toggle[aria-expanded="true"] span::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] span::after {
+      top: 0;
+      transform: rotate(-45deg);
     }
 
     /* map-textured section */
@@ -398,6 +451,7 @@
     img.hero-photo {
       display: block;
       width: 100%;
+      max-width: 400px;
       height: auto;
       border: 1px solid var(--line);
       background: var(--bg-2);
@@ -405,6 +459,7 @@
 
     .hero-photo-wrap {
       position: relative;
+      max-width: 400px;
     }
 
     .hero-photo-wrap .chip {
@@ -1569,25 +1624,30 @@
     }
 
     @media (max-width: 760px) {
+      /* drop the route line + pins — just a plain stack of cards, one after another */
+      .route,
+      .pin {
+        display: none;
+      }
+
+      .stops {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
       .stop {
-        min-height: 440px;
+        position: static;
+        min-height: 0;
+        pointer-events: auto;
       }
 
-      .stop .pin {
-        left: 22px !important;
-      }
-
-      .stop .stop-card,
       .stop:nth-child(odd) .stop-card,
       .stop:nth-child(even) .stop-card {
-        left: 60px;
-        right: 4px;
+        position: static;
         width: auto;
-        transform: translateY(-50%) translateX(12px);
-      }
-
-      .stop.reached .stop-card {
-        transform: translateY(-50%) translateX(0);
+        opacity: 1;
+        transform: none;
       }
 
       .stop-when {
@@ -2365,11 +2425,37 @@
 
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 32px;
       }
 
       .hero-photo-wrap {
-        max-width: 380px;
+        order: -1;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .hero .actions .btn.primary {
+        flex: 1 1 100%;
+      }
+
+      .hero .actions .btn-li {
+        flex: 1 1 0;
+        justify-content: center;
+      }
+
+      .lvl-legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      }
+
+      .skill {
+        width: auto;
       }
 
       .story-grid {
@@ -2397,8 +2483,70 @@
         display: none;
       }
 
+      .nav-toggle {
+        display: flex;
+      }
+
       nav.links {
-        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        background: var(--card);
+        border-bottom: 1px solid var(--line-soft);
+        box-shadow: var(--shadow-lg);
+        padding: 10px 20px 16px;
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+        transition: max-height .22s ease, opacity .18s ease, visibility .22s;
+      }
+
+      nav.links.open {
+        max-height: 70vh;
+        visibility: visible;
+        opacity: 1;
+        overflow: auto;
+      }
+
+      nav.links a {
+        padding: 12px 4px;
+        border-bottom: 1px solid var(--line-soft);
+        border-radius: 0;
+      }
+
+      nav.links a:last-child {
+        border-bottom: none;
+      }
+
+      nav.links a.cta {
+        margin-left: 0;
+        margin-top: 6px;
+        text-align: center;
+      }
+    }
+
+    /* touch devices: no real hover, so skip the lift + tooltip and just let the tap register as a click */
+    @media (hover: none) {
+      .skill:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: var(--line);
+        z-index: auto;
+      }
+
+      .skill:hover .tip {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-50%) translateY(6px);
+      }
+
+      .skill.skill-link:hover img {
+        transform: none;
       }
     }
 

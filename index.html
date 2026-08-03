@@ -22,7 +22,7 @@
         <span class="mark">@</span>
         <span>Simen <span class="dom">/portefølje</span></span>
       </a>
-      <nav class="links">
+      <nav class="links" id="navLinks">
         <a href="#about">Om</a>
         <a href="#tech">Teknologi</a>
         <a href="#work">Utvalgt</a>
@@ -30,6 +30,10 @@
         <a href="#projects">Prosjekter</a>
         <a href="#contact" class="cta">Kontakt</a>
       </nav>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Åpne meny" aria-expanded="false"
+        aria-controls="navLinks">
+        <span></span>
+      </button>
     </div>
   </header>
 
@@ -41,7 +45,7 @@
         <div class="hero-grid">
           <div class="reveal">
             <h1 style="color: rgb(0, 0, 0)">Simen Emil Wiig Holmen</h1>
-            <div class="role" style="width: 610px">
+            <div class="role">
               <b>Master i informasjonssystemer</b> <span class="sep">/</span>
               <span>Student</span> <span class="sep">/</span>
               <span>Kristiansand, Norge</span> <span class="sep">
@@ -59,7 +63,7 @@
             </div>
           </div>
           <div class="hero-photo-wrap reveal">
-            <img class="hero-photo" style="width: 400px" src="assets/personal/portrait-web.jpg"
+            <img class="hero-photo" src="assets/personal/portrait-web.jpg"
               alt="Portrett av Simen Emil Wiig Holmen" />
             <div class="chip" id="techChip" style="border-radius: 12px; padding: 0px">
               <div class="ic"><img id="techChipIcon" alt="" loading="lazy" src="https://skillicons.dev/icons?i=html" />
@@ -403,15 +407,15 @@
               </div>
             </div>
 
-            <div class="stop stop-dest">
+            <div class="stop">
               <div class="pin"><span class="ring"></span><span class="core"></span></div>
               <span class="stop-when">Sommer 2026</span>
               <div class="stop-card">
-                <div class="wp">&#9873; akkurat nå<span class="wp-date"> · Sommer 2026</span></div>
-                <h4>Det jeg gjør nå</h4>
-                <p>Akkurat nå er jeg sommerstudent hos Geodata, hvor jeg jobber med et veildig
-                  spennende prosjekt for Norsk luftambulanse, hvor vi utvikler et automatiske tester og synkroniseringer
-                  for å få en status over kartlagene som brukes i appen deres.
+                <div class="wp">◎ Sommerjobb<span class="wp-date"> · Sommer 2026</span></div>
+                <h4>Sommerstudent hos Geodata</h4>
+                <p>Denne sommeren jobbet jeg som sommerstudent hos Geodata, hvor jeg jobbet med et veldig
+                  spennende prosjekt for Norsk luftambulanse, hvor vi utviklet automatiske tester og synkroniseringer
+                  for å få en status over kartlagene som brukes i appen deres, HemsWX.
                 </p>
                 <img class="stop-img" alt="Sommerprosjekt hos Geodata" loading="lazy"
                   src="assets/personal/geodata-sommer-2026.jpg" />
@@ -435,6 +439,25 @@
                       src="https://skillicons.dev/icons?i=git" /></span>
                   <span class="stech has-tip" data-tip="ArcGIS"><img alt="ArcGIS" loading="lazy"
                       src="assets/tech/arcgis.png" /></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stop stop-dest">
+              <div class="pin"><span class="ring"></span><span class="core"></span></div>
+              <span class="stop-when">Høst 2026</span>
+              <div class="stop-card">
+                <div class="wp">&#9873; akkurat nå<span class="wp-date"> · Høst 2026</span></div>
+                <h4>Det jeg gjør nå</h4>
+                <p>Akkurat nå har jeg startet på masteren min i Informasjonssystemer på UiA. I tillegg har jeg begynt å
+                  jobbe deltid som junior utvikler hos Reviver, bedriften jeg skrev bacheloroppgaven min for. </p>
+                <div class="stop-photo ph"><span>bilde kommer</span></div>
+                <div class="stop-emner">
+                  <span class="stop-sub">Emner</span>
+                  <div class="emner-list"><span class="has-tip"
+                      data-tip="Digital Transformation and Business Process Management">IS-403</span><span
+                      class="has-tip" data-tip="Digital Technologies and Enterprise Systems">IS-406</span><span
+                      class="has-tip" data-tip="Data Science Applications II">IS-427</span></div>
                 </div>
               </div>
             </div>
