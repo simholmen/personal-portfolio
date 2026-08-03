@@ -12,7 +12,6 @@
       function techIcon(id) { return TECH[id] || { label: id, icon: '' }; }
 
       function renderLink(l, isFeat) {
-        if (isFeat && l.download) return '';
         var cls = l.className ? ' class="' + l.className + '"' : '';
         var target = l.external ? ' target="_blank" rel="noopener"' : '';
         var dl = l.download ? ' download' : '';
@@ -53,7 +52,7 @@
         }).join('');
         var links = (p.links || []).map(function (l) { return renderLink(l, true); }).join('');
         return '<article class="feat-card reveal">' +
-          renderFeatMedia(f.media) +
+          renderFeatMedia(p.media) +
           '<div class="feat-body">' +
           '<span class="idx">' + f.idxLabel + '</span>' +
           '<h3>' + f.headline + '</h3>' +
@@ -77,6 +76,7 @@
         var learned = p.learned ? '<span class="stop-sub">Lærte</span><ul class="pd-learned">' +
           p.learned.map(function (l) { return '<li>' + l + '</li>'; }).join('') + '</ul>' : '';
         var links = (p.links || []).map(function (l) { return renderLink(l, false); }).join('');
+        var mediaBlock = p.media ? '<div class="pd-media">' + renderFeatMedia(p.media) + '</div>' : '';
         return '<div class="proj-row reveal" tabindex="0" role="button" aria-label="Les mer om ' + p.title + '" data-rating="' + p.rating + '" data-year="' + p.yearSort + '">' +
           '<div class="stars" aria-label="Vurdering"></div>' +
           '<div class="meta"><h4>' + p.title + (p.school ? SCHOOL_BADGE : '') + '</h4><p>' + p.teaser + '</p></div>' +
@@ -87,6 +87,7 @@
           '<div class="pd-head"><div class="stars-static" aria-hidden="true"></div><span class="yr">' + p.year + ' · ' + p.category + '</span></div>' +
           '<h3>' + p.title + '</h3>' +
           desc +
+          mediaBlock +
           (p.grade ? '<div class="pd-grade"><span class="gc">Karakter</span><span class="gv">' + p.grade + '</span></div>' : '') +
           '<span class="stop-sub">Teknologier</span><div class="stop-tech">' + stopTech + '</div>' +
           learned +
@@ -301,10 +302,11 @@
         body.innerHTML = detail ? detail.innerHTML : '';
         var st = body.querySelector('.stars-static');
         if (st && window.__fillStars) {
-          var rows = document.querySelectorAll('.proj-row');
-          var idx = Array.prototype.indexOf.call(rows, row);
-          window.__fillStars(st, window.__projRating ? window.__projRating(idx) : 0);
+          window.__fillStars(st, parseInt(row.getAttribute('data-rating'), 10) || 0);
         }
+        Array.prototype.forEach.call(body.querySelectorAll('[data-gallery]'), function (gal) {
+          if (window.__initGallery) window.__initGallery(gal);
+        });
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -399,7 +401,6 @@
       });
 
       // expose for the detail modal
-      window.__projRating = function (idx) { return rows[idx] ? ratingOf(rows[idx]) : 0; };
       window.__fillStars = render;
     })();
 
@@ -516,6 +517,39 @@
 
       setDir(sortSeg.querySelector('[data-sort="date"]'), sortDir.date);
       apply();
+
+      // exposed so tech tiles in the skills section can jump here pre-filtered
+      window.__filterProjectsByTech = function (name) {
+        activeTechs = {};
+        if (techMap[name] !== undefined) activeTechs[name] = true;
+        updateTechUI();
+        apply();
+      };
+    })();
+
+    /* ---- clicking a tech tile jumps to the archive, filtered to that tech ---- */
+    (function () {
+      var tiles = document.querySelectorAll('#tech .skill');
+      if (!tiles.length) return;
+      var projSection = document.getElementById('projects');
+      var nav = document.querySelector('header.nav');
+
+      Array.prototype.forEach.call(tiles, function (tile) {
+        var img = tile.querySelector('img');
+        if (!img) return;
+        tile.classList.add('skill-link');
+        tile.addEventListener('click', function (e) {
+          if (e.target.closest('.uses-link')) return; // tooltip's own project links handle themselves
+          var name = img.getAttribute('alt');
+          if (!name) return;
+          if (window.__filterProjectsByTech) window.__filterProjectsByTech(name);
+          if (projSection) {
+            var navH = nav ? nav.offsetHeight : 72;
+            var top = projSection.getBoundingClientRect().top + window.pageYOffset - navH - 14;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+        });
+      });
     })();
 
     /* ---- experience level on tech tiles, from the "brukt i" list in each tooltip ---- */
@@ -549,42 +583,68 @@
     })();
 
     /* ---- featured project screenshot gallery: 2 images per page, arrows + dots ---- */
+    function initGallery(gal) {
+      if (gal.__galleryInit) return;
+      gal.__galleryInit = true;
+      var track = gal.querySelector('.fg-track');
+      var pages = gal.querySelectorAll('.fg-page');
+      var prev = gal.querySelector('.fg-prev');
+      var next = gal.querySelector('.fg-next');
+      var dotsWrap = gal.querySelector('.fg-dots');
+      var n = pages.length;
+      if (!track || n === 0) return;
+      var i = 0;
+
+      // single-image-per-page galleries have no grid partner to size against (unlike
+      // the featured card, where the text column sets the row height) — so size the
+      // box off the first image's own aspect ratio and let every other page crop to it
+      if (gal.classList.contains('fg-single')) {
+        var firstImg = pages[0].querySelector('img');
+        if (firstImg) {
+          var setAspect = function () {
+            if (firstImg.naturalWidth && firstImg.naturalHeight) {
+              gal.style.setProperty('--gallery-ar', firstImg.naturalWidth + ' / ' + firstImg.naturalHeight);
+            }
+          };
+          if (firstImg.complete) setAspect();
+          else firstImg.addEventListener('load', setAspect, { once: true });
+        }
+      }
+
+      var dots = [];
+      if (dotsWrap) {
+        for (var d = 0; d < n; d++) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('role', 'tab');
+          b.setAttribute('aria-label', 'Side ' + (d + 1));
+          (function (idx) { b.addEventListener('click', function () { go(idx); }); })(d);
+          dotsWrap.appendChild(b);
+          dots.push(b);
+        }
+      }
+
+      function go(idx) {
+        i = (idx + n) % n;
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        dots.forEach(function (dot, k) {
+          dot.classList.toggle('active', k === i);
+          dot.setAttribute('aria-selected', k === i ? 'true' : 'false');
+        });
+      }
+
+      if (prev) prev.addEventListener('click', function () { go(i - 1); });
+      if (next) next.addEventListener('click', function () { go(i + 1); });
+      go(0);
+    }
+    window.__initGallery = initGallery;
     (function () {
       Array.prototype.forEach.call(document.querySelectorAll('[data-gallery]'), function (gal) {
-        var track = gal.querySelector('.fg-track');
-        var pages = gal.querySelectorAll('.fg-page');
-        var prev = gal.querySelector('.fg-prev');
-        var next = gal.querySelector('.fg-next');
-        var dotsWrap = gal.querySelector('.fg-dots');
-        var n = pages.length;
-        if (!track || n === 0) return;
-        var i = 0;
-
-        var dots = [];
-        if (dotsWrap) {
-          for (var d = 0; d < n; d++) {
-            var b = document.createElement('button');
-            b.type = 'button';
-            b.setAttribute('role', 'tab');
-            b.setAttribute('aria-label', 'Side ' + (d + 1));
-            (function (idx) { b.addEventListener('click', function () { go(idx); }); })(d);
-            dotsWrap.appendChild(b);
-            dots.push(b);
-          }
-        }
-
-        function go(idx) {
-          i = (idx + n) % n;
-          track.style.transform = 'translateX(' + (-i * 100) + '%)';
-          dots.forEach(function (dot, k) {
-            dot.classList.toggle('active', k === i);
-            dot.setAttribute('aria-selected', k === i ? 'true' : 'false');
-          });
-        }
-
-        if (prev) prev.addEventListener('click', function () { go(i - 1); });
-        if (next) next.addEventListener('click', function () { go(i + 1); });
-        go(0);
+        // galleries inside .proj-detail are hidden templates cloned into the modal on
+        // open (see the modal code above) — initializing them here would add dot
+        // buttons that then get cloned along, doubling up once the modal re-inits them
+        if (gal.closest('.proj-detail')) return;
+        initGallery(gal);
       });
     })();
 
@@ -621,5 +681,49 @@
         if (prev) prev.addEventListener('click', function () { go(i - 1); });
         if (next) next.addEventListener('click', function () { go(i + 1); });
         go(0);
+      });
+    })();
+
+    /* ---- image lightbox: click a project or journey photo for a bigger view ---- */
+    (function () {
+      var lb = document.getElementById('lightbox');
+      if (!lb) return;
+      var SEL = '.feat-media img, .stop-photo img, .stop-card .stop-img, .stop-gallery .sg-slide img';
+      var img = lb.querySelector('img');
+      var closeBtn = lb.querySelector('.lb-x');
+      var projModal = document.getElementById('projModal');
+      var lastFocus = null;
+
+      function open(src, alt, triggerEl) {
+        img.src = src;
+        img.alt = alt || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        lastFocus = triggerEl;
+        closeBtn.focus();
+      }
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        // leave scrolling locked if the project modal underneath is still open
+        if (!projModal || !projModal.classList.contains('open')) {
+          document.body.style.overflow = '';
+        }
+        img.src = '';
+        if (lastFocus) lastFocus.focus();
+      }
+
+      document.addEventListener('click', function (e) {
+        var target = e.target.closest(SEL);
+        if (!target) return;
+        e.stopPropagation();
+        open(target.currentSrc || target.src, target.alt, target);
+      });
+
+      lb.querySelector('.backdrop').addEventListener('click', close);
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lb.classList.contains('open')) close();
       });
     })();
