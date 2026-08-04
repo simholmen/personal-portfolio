@@ -883,6 +883,13 @@
       padding: 24px 18px;
     }
 
+    /* while a feat-card's description is expanded, the gallery panel grows taller
+       to match — pin the viewport to a fixed offset (set from JS, in script.js)
+       instead of re-centering, so the images don't shift when that happens */
+    .feat-gallery.fg-pinned {
+      align-items: flex-start;
+    }
+
     .fg-viewport {
       overflow: hidden;
       width: 100%;
@@ -894,11 +901,14 @@
     }
 
     .fg-page {
-      flex: 0 0 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items: start;
+      flex: 0 0 auto;
+      width: calc(100% / var(--fg-visible, 1));
+      padding-right: 14px;
+      align-self: start;
+    }
+
+    .fg-page:last-child {
+      padding-right: 0;
     }
 
     .fg-page img {
@@ -939,6 +949,12 @@
       border-color: var(--accent);
     }
 
+    .fg-btn:disabled {
+      opacity: .35;
+      cursor: default;
+      pointer-events: none;
+    }
+
     .fg-prev {
       left: 12px;
     }
@@ -953,6 +969,11 @@
 
     .fg-next:hover {
       transform: translateY(-50%) translateX(2px);
+    }
+
+    .fg-btn[hidden],
+    .fg-dots[hidden] {
+      display: none !important;
     }
 
     .fg-dots {
@@ -985,7 +1006,7 @@
      keep its natural aspect ratio so the whole screenshot is visible, rather
      than stretching to fill the row and cropping the image to fit */
     .feat-gallery.fg-single .fg-page {
-      grid-template-columns: 1fr;
+      padding-right: 0;
     }
 
     /* featured project panel filled with a single photo */
@@ -1025,6 +1046,62 @@
       color: var(--ink-soft);
       margin-top: 12px;
       font-size: 15.5px;
+      line-height: 1.6;
+    }
+
+    .feat-desc {
+      margin-top: 12px;
+    }
+
+    .feat-desc p {
+      margin-top: 0;
+    }
+
+    .feat-desc p + p {
+      margin-top: 14px;
+    }
+
+    .feat-more-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      padding: 0;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent-ink);
+      cursor: pointer;
+    }
+
+    .feat-more-toggle .chev {
+      font-size: 11px;
+      transition: transform 0.25s ease;
+    }
+
+    .feat-more-toggle[aria-expanded="true"] .chev {
+      transform: rotate(180deg);
+    }
+
+    .feat-desc-more {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+
+    .feat-desc-more.open {
+      grid-template-rows: 1fr;
+    }
+
+    .feat-desc-more-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .feat-desc-more-inner p:first-child {
+      margin-top: 14px;
     }
 
     .feat-body .stack {
@@ -1423,6 +1500,7 @@
 
     .stop-gallery .sg-track {
       display: flex;
+      align-items: center;
       transition: transform .42s cubic-bezier(.2, .7, .2, 1);
     }
 
@@ -1470,6 +1548,11 @@
 
     .stop-gallery .sg-next {
       right: 8px;
+    }
+
+    .sg-btn[hidden],
+    .sg-dots[hidden] {
+      display: none !important;
     }
 
     .stop-gallery .sg-dots {
@@ -1946,10 +2029,14 @@
       margin-top: 18px;
     }
 
-    .proj-modal .dialog>p {
+    .proj-modal .pd-body>p {
       color: var(--ink-soft);
       font-size: 15px;
       margin-top: 12px;
+    }
+
+    .proj-modal .pd-body>p+p {
+      margin-top: 16px;
     }
 
     .pd-media {
@@ -2022,33 +2109,7 @@
       box-shadow: var(--shadow);
     }
 
-    /* "learned" list + grade badge inside the project detail modal */
-    .proj-modal .pd-learned {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 9px;
-    }
-
-    .proj-modal .pd-learned li {
-      font-size: 14.5px;
-      color: var(--ink-soft);
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .proj-modal .pd-learned li::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-2);
-      margin-top: 8px;
-      flex: 0 0 auto;
-    }
-
+    /* grade badge inside the project detail modal */
     .proj-modal .pd-grade {
       align-self: flex-start;
       display: inline-flex;
@@ -2519,7 +2580,7 @@
         border-radius: 0;
       }
 
-      nav.links a:last-child {
+      nav.links a:last-child:not(.cta) {
         border-bottom: none;
       }
 
@@ -2558,6 +2619,15 @@
       .proj-row {
         gap: 14px;
         padding: 14px 16px;
+      }
+
+      /* long titles + the "Skole" badge can outgrow the shrunk meta column at very
+         small widths and bleed into the yr/arrow columns next to it — let the badge
+         drop to its own line instead of overlapping them */
+      .proj-row .meta h4 {
+        flex-wrap: wrap;
+        row-gap: 4px;
+        overflow-wrap: anywhere;
       }
 
       .contact-card {

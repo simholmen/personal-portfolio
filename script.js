@@ -11,24 +11,26 @@
 
       function techIcon(id) { return TECH[id] || { label: id, icon: '' }; }
 
-      function renderLink(l, isFeat) {
+      function renderLink(l) {
         var cls = l.className ? ' class="' + l.className + '"' : '';
         var target = l.external ? ' target="_blank" rel="noopener"' : '';
         var dl = l.download ? ' download' : '';
-        var prefix = (isFeat && l.prefixPlay) ? '▶ ' : '';
+        var prefix = l.prefixPlay ? '▶ ' : l.download ? '↓ ' : l.external ? '↗ ' : '';
         return '<a' + cls + ' href="' + l.href + '"' + target + dl + '>' + prefix + l.label + '</a>';
       }
 
       function renderFeatMedia(m) {
         if (m.type === 'gallery') {
-          var isSingle = m.pages.every(function (page) { return page.length === 1; });
-          var pages = m.pages.map(function (page) {
-            var imgs = page.map(function (im) {
-              return '<img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" />';
-            }).join('');
-            return '<div class="fg-page">' + imgs + '</div>';
+          // flattened into one image per slide so the arrows slide the window over
+          // by a single image at a time (2nd image moves into the 1st spot, etc.)
+          // rather than jumping a whole page of images at once
+          var flat = [].concat.apply([], m.pages);
+          var perPage = (m.pages[0] && m.pages[0].length) || 1;
+          var isSingle = perPage <= 1;
+          var pages = flat.map(function (im) {
+            return '<div class="fg-page"><img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" /></div>';
           }).join('');
-          return '<div class="feat-media feat-gallery' + (isSingle ? ' fg-single' : '') + '" data-gallery>' +
+          return '<div class="feat-media feat-gallery' + (isSingle ? ' fg-single' : '') + '" data-gallery data-per-page="' + perPage + '" style="--fg-visible:' + perPage + '">' +
             '<div class="fg-viewport"><div class="fg-track">' + pages + '</div></div>' +
             '<button class="fg-btn fg-prev" type="button" aria-label="Forrige bilder">‹</button>' +
             '<button class="fg-btn fg-next" type="button" aria-label="Neste bilder">›</button>' +
@@ -50,13 +52,25 @@
           var ti = techIcon(t);
           return '<span class="ft"><img alt="' + ti.label + '" loading="lazy" src="' + ti.icon + '" />' + ti.label + '</span>';
         }).join('');
-        var links = (p.links || []).map(function (l) { return renderLink(l, true); }).join('');
+        var links = (p.links || []).map(function (l) { return renderLink(l); }).join('');
+        var paras = p.description || [];
+        var rest = paras.slice(1);
+        var desc = '<div class="feat-desc">' +
+          '<p>' + paras[0] + '</p>' +
+          (rest.length ? (
+            '<button type="button" class="feat-more-toggle" aria-expanded="false">' +
+            '<span class="lbl">Les mer</span><span class="chev" aria-hidden="true">↓</span></button>' +
+            '<div class="feat-desc-more"><div class="feat-desc-more-inner">' +
+            rest.map(function (para) { return '<p>' + para + '</p>'; }).join('') +
+            '</div></div>'
+          ) : '') +
+          '</div>';
         return '<article class="feat-card reveal">' +
           renderFeatMedia(p.media) +
           '<div class="feat-body">' +
           '<span class="idx">' + f.idxLabel + '</span>' +
           '<h3>' + f.headline + '</h3>' +
-          '<p>' + f.blurb + '</p>' +
+          desc +
           '<div class="feat-tech">' + techRow + '</div>' +
           (p.grade ? gradeBlock(p.grade) : '') +
           '<div class="flinks">' + links + '</div>' +
@@ -73,9 +87,7 @@
           return '<span class="stech has-tip" data-tip="' + ti.label + '"><img alt="' + ti.label + '" loading="lazy" src="' + ti.icon + '" /></span>';
         }).join('');
         var desc = p.description.map(function (para) { return '<p>' + para + '</p>'; }).join('');
-        var learned = p.learned ? '<span class="stop-sub">Lærte</span><ul class="pd-learned">' +
-          p.learned.map(function (l) { return '<li>' + l + '</li>'; }).join('') + '</ul>' : '';
-        var links = (p.links || []).map(function (l) { return renderLink(l, false); }).join('');
+        var links = (p.links || []).map(function (l) { return renderLink(l); }).join('');
         var mediaBlock = p.media ? '<div class="pd-media">' + renderFeatMedia(p.media) + '</div>' : '';
         return '<div class="proj-row reveal" tabindex="0" role="button" aria-label="Les mer om ' + p.title + '" data-rating="' + p.rating + '" data-year="' + p.yearSort + '">' +
           '<div class="stars" aria-label="Vurdering"></div>' +
@@ -90,7 +102,6 @@
           mediaBlock +
           (p.grade ? '<div class="pd-grade"><span class="gc">Karakter</span><span class="gv">' + p.grade + '</span></div>' : '') +
           '<span class="stop-sub">Teknologier</span><div class="stop-tech">' + stopTech + '</div>' +
-          learned +
           '<div class="pd-links">' + links + '</div>' +
           '</div></div>';
       }
@@ -99,6 +110,34 @@
         var featured = PROJECTS.filter(function (p) { return p.featured; })
           .sort(function (a, b) { return a.featured.order - b.featured.order; });
         featList.innerHTML = featured.map(renderFeatCard).join('');
+
+        Array.prototype.forEach.call(featList.querySelectorAll('.feat-more-toggle'), function (btn) {
+          var card = btn.closest('.feat-card');
+          var gallery = card && card.querySelector('.feat-gallery');
+          var viewport = gallery && gallery.querySelector('.fg-viewport');
+
+          btn.addEventListener('click', function () {
+            var more = btn.nextElementSibling;
+            var open = btn.getAttribute('aria-expanded') === 'true';
+            var opening = !open;
+
+            // freeze the gallery's current (centered) image offset the first time
+            // it opens, so expanding never shifts the images — left in place after
+            // that, since it's the same offset the images already centered at while
+            // collapsed, so collapsing back never causes a re-center "jump" either
+            if (viewport && opening && !gallery.classList.contains('fg-pinned')) {
+              var galleryTop = gallery.getBoundingClientRect().top;
+              var viewportTop = viewport.getBoundingClientRect().top;
+              var paddingTop = parseFloat(getComputedStyle(gallery).paddingTop) || 0;
+              viewport.style.marginTop = (viewportTop - galleryTop - paddingTop) + 'px';
+              gallery.classList.add('fg-pinned');
+            }
+
+            btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+            btn.querySelector('.lbl').textContent = opening ? 'Vis mindre' : 'Les mer';
+            if (more) more.classList.toggle('open', opening);
+          });
+        });
       }
       if (rowList) {
         rowList.innerHTML = PROJECTS.map(renderRow).join('');
@@ -622,9 +661,14 @@
       var prev = gal.querySelector('.fg-prev');
       var next = gal.querySelector('.fg-next');
       var dotsWrap = gal.querySelector('.fg-dots');
-      var n = pages.length;
-      if (!track || n === 0) return;
+      var total = pages.length;
+      var perPage = parseInt(gal.getAttribute('data-per-page'), 10) || 1;
+      if (!track || total === 0) return;
       var i = 0;
+      // last window start: with e.g. 6 images shown 2 at a time, the window can
+      // start at 0..4 (images [4,5] being the last valid pair) — this is a sliding
+      // window over individual images, not a jump to the next page of images
+      var maxIndex = Math.max(0, total - perPage);
 
       // single-image-per-page galleries have no grid partner to size against (unlike
       // the featured card, where the text column sets the row height) — so size the
@@ -642,9 +686,15 @@
         }
       }
 
+      if (maxIndex <= 0) {
+        if (prev) prev.hidden = true;
+        if (next) next.hidden = true;
+        if (dotsWrap) dotsWrap.hidden = true;
+      }
+
       var dots = [];
-      if (dotsWrap) {
-        for (var d = 0; d < n; d++) {
+      if (dotsWrap && maxIndex > 0) {
+        for (var d = 0; d <= maxIndex; d++) {
           var b = document.createElement('button');
           b.type = 'button';
           b.setAttribute('role', 'tab');
@@ -656,12 +706,14 @@
       }
 
       function go(idx) {
-        i = (idx + n) % n;
-        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        i = Math.max(0, Math.min(maxIndex, idx));
+        track.style.transform = 'translateX(' + (-i * (100 / perPage)) + '%)';
         dots.forEach(function (dot, k) {
           dot.classList.toggle('active', k === i);
           dot.setAttribute('aria-selected', k === i ? 'true' : 'false');
         });
+        if (prev) prev.disabled = i <= 0;
+        if (next) next.disabled = i >= maxIndex;
       }
 
       if (prev) prev.addEventListener('click', function () { go(i - 1); });
@@ -690,7 +742,12 @@
         var n = slides.length;
         if (!track || n === 0) return;
         var i = 0, dots = [];
-        if (dotsWrap) {
+        if (n <= 1) {
+          if (prev) prev.hidden = true;
+          if (next) next.hidden = true;
+          if (dotsWrap) dotsWrap.hidden = true;
+        }
+        if (dotsWrap && n > 1) {
           for (var d = 0; d < n; d++) {
             var b = document.createElement('button');
             b.type = 'button';
