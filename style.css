@@ -283,7 +283,7 @@
       letter-spacing: 0.04em;
     }
 
-    .ph span {
+    .ph span:not(.stop-caption) {
       background: var(--card);
       padding: 5px 11px;
       border-radius: 100px;
@@ -305,7 +305,7 @@
       /* drop the striped placeholder fill once filled */
     }
 
-    .ph:has(img) span {
+    .ph:has(img) span:not(.stop-caption) {
       display: none;
     }
 
@@ -878,16 +878,30 @@
       position: relative;
       min-height: 0;
       background: var(--bg-2);
-      display: flex;
-      align-items: center;
+      display: grid;
+      /* row 1 (image + caption) takes all leftover height and centers its own
+         content within it; row 2 (dots) sizes to its own content, so it always
+         ends up pinned to the panel's bottom edge rather than floating with it */
+      grid-template-rows: 1fr auto;
       padding: 24px 18px;
     }
 
+    .fg-content-wrap {
+      align-self: center;
+    }
+
     /* while a feat-card's description is expanded, the gallery panel grows taller
-       to match — pin the viewport to a fixed offset (set from JS, in script.js)
+       to match — pin the content to a fixed offset (set from JS, in script.js)
        instead of re-centering, so the images don't shift when that happens */
-    .feat-gallery.fg-pinned {
-      align-items: flex-start;
+    .feat-gallery.fg-pinned .fg-content-wrap {
+      align-self: start;
+    }
+
+    /* the image row + its overlaid arrows — kept separate from the caption
+       track below, so the arrows never sit on top of the caption text */
+    .fg-stage {
+      position: relative;
+      width: 100%;
     }
 
     .fg-viewport {
@@ -919,6 +933,37 @@
       border: 1px solid var(--line);
       background: var(--card);
       box-shadow: var(--shadow);
+    }
+
+    /* caption track: mirrors the image track's paging/width so each caption
+       lines up under its own image, sliding in sync (see initGallery in script.js) */
+    .fg-cap-viewport {
+      overflow: hidden;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .fg-cap-track {
+      display: flex;
+      transition: transform .44s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .fg-cap-page {
+      flex: 0 0 auto;
+      width: calc(100% / var(--fg-visible, 1));
+      padding-right: 14px;
+    }
+
+    .fg-cap-page:last-child {
+      padding-right: 0;
+    }
+
+    /* small centered caption under a project screenshot */
+    .fg-caption {
+      display: block;
+      font-size: 11.5px;
+      color: var(--ink-soft);
+      text-align: center;
     }
 
     .fg-btn {
@@ -976,14 +1021,12 @@
       display: none !important;
     }
 
+    /* own grid row, pinned to the panel's bottom — see .feat-gallery above */
     .fg-dots {
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
+      justify-content: center;
       gap: 7px;
-      z-index: 3;
+      padding-top: 14px;
     }
 
     .fg-dots button {
@@ -1005,20 +1048,23 @@
     /* galleries with one photo per page (no side-by-side pair) — let the image
      keep its natural aspect ratio so the whole screenshot is visible, rather
      than stretching to fill the row and cropping the image to fit */
-    .feat-gallery.fg-single .fg-page {
+    .feat-gallery.fg-single .fg-page,
+    .feat-gallery.fg-single .fg-cap-page {
       padding-right: 0;
     }
 
     /* featured project panel filled with a single photo */
     .feat-media.feat-photo {
-      display: block;
+      display: flex;
+      flex-direction: column;
       min-height: 0;
       background: var(--bg-2);
     }
 
     .feat-media.feat-photo img {
       width: 100%;
-      height: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
       object-fit: cover;
       display: block;
     }
@@ -1459,6 +1505,15 @@
       max-height: 220px;
     }
 
+    /* small centered caption under a journey photo */
+    .stop-caption {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-top: 6px;
+    }
+
     .stop-card p {
       color: var(--ink-soft);
       font-size: 14.5px;
@@ -1474,6 +1529,7 @@
 
     .stop-photo:has(img) {
       height: auto;
+      display: block;
     }
 
     .stop-photo:not(:has(img)) {
@@ -1486,12 +1542,22 @@
 
     /* compact flippable photo gallery inside a journey stop card */
     .stop-gallery {
-      position: relative;
       margin-top: 15px;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--line);
       background: var(--bg-2);
+    }
+
+    /* the image + its overlaid arrows/dots — kept separate from the caption below
+       so the dots (anchored to this box) never sit over the caption text */
+    .sg-stage {
+      position: relative;
+    }
+
+    .stop-gallery .sg-caption {
+      margin-top: 0;
+      padding: 6px 10px;
     }
 
     .stop-gallery .sg-viewport {
@@ -2050,11 +2116,13 @@
       min-height: 0;
     }
 
-    /* the featured card's "fg-single" mode stretches a gallery page to match the
+    /* the featured card's "fg-single" mode stretches the image stage to match the
        height of its text-column grid partner — no such partner exists in the modal,
        so size the box off the first image's own aspect ratio instead (set as
-       --gallery-ar by initGallery in script.js) and crop every other page to match */
-    .pd-media .feat-gallery.fg-single {
+       --gallery-ar by initGallery in script.js) and crop every other page to match.
+       Scoped to the stage (not the whole gallery) so the caption track below it
+       keeps its own natural height instead of being squeezed into that ratio. */
+    .pd-media .feat-gallery.fg-single .fg-stage {
       aspect-ratio: var(--gallery-ar, 16 / 10);
     }
 

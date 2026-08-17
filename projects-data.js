@@ -67,9 +67,9 @@ var PROJECTS = [
     media: {
       type: 'gallery', pages: [
         [{ type: 'photo', src: 'assets/projects/geodata2026/varde1.png', alt: 'Hjemmeside for Varde' }],
-        [{ type: 'photo', src: 'assets/projects/geodata2026/varde2.png', alt: 'Viser norgeskart' }],
-        [{ type: 'photo', src: 'assets/projects/geodata2026/varde3.png', alt: 'Hjertestarter detalside' }],
-        [{ type: 'photo', src: 'assets/projects/geodata2026/varde4.png', alt: 'Hjertestarter detalside med historikk' }],
+        [{ type: 'photo', src: 'assets/projects/geodata2026/varde2.png', alt: 'Norgeskart kartlag' }],
+        [{ type: 'photo', src: 'assets/projects/geodata2026/varde3.png', alt: 'Hjertestarter detaljside' }],
+        [{ type: 'photo', src: 'assets/projects/geodata2026/varde4.png', alt: 'Hjertestarter detaljside med trafikk historikk' }],
         [{ type: 'photo', src: 'assets/projects/geodata2026/varde5.png', alt: 'Feil i historie' }],
       ]
     },
@@ -110,9 +110,9 @@ var PROJECTS = [
     ],
     media: {
       type: 'gallery', pages: [
-        [{ src: 'assets/projects/bachelor/reviver-login.png', alt: 'Reviver — innlogging' }, { src: 'assets/projects/bachelor/reviver-quiz.png', alt: 'Reviver — gjett avfallstype' }],
-        [{ src: 'assets/projects/bachelor/reviver-result.png', alt: 'Reviver — resultat med treffsikkerhet' }, { src: 'assets/projects/bachelor/reviver-level.png', alt: 'Reviver — nivå og streak' }],
-        [{ src: 'assets/projects/bachelor/reviver-leaderboard.png', alt: 'Reviver — leaderboard' }, { src: 'assets/projects/bachelor/reviver-profile.png', alt: 'Reviver — profil' }]
+        [{ src: 'assets/projects/bachelor/reviver-login.png', alt: 'Innloggingsside' }, { src: 'assets/projects/bachelor/reviver-quiz.png', alt: 'Gjett avfallstype' }],
+        [{ src: 'assets/projects/bachelor/reviver-result.png', alt: 'Resultat av scanning med treffsikkerhet' }, { src: 'assets/projects/bachelor/reviver-level.png', alt: 'Poeng, nivå og streak etter en scanning' }],
+        [{ src: 'assets/projects/bachelor/reviver-leaderboard.png', alt: 'Leaderboard' }, { src: 'assets/projects/bachelor/reviver-profile.png', alt: 'Profil med nivå' }]
       ]
     },
     featured: {
@@ -152,7 +152,7 @@ var PROJECTS = [
     links: [{ label: 'Kildekode', href: 'https://github.com/Larskyd/chatbot', external: true }],
     media: {
       type: 'gallery', pages: [
-        [{ type: 'photo', src: 'assets/projects/php/matchatbot.png', alt: 'Chatbot interface' }],
+        [{ type: 'photo', src: 'assets/projects/php/matchatbot.png', alt: 'Chatbot hjemmeside' }],
       ]
     },
     
@@ -214,9 +214,9 @@ var PROJECTS = [
     ],
     media: {
       type: 'gallery', pages: [
-        [{ type: 'photo', src: 'assets/projects/gis-ki/shortestpath.png', alt: 'Bildedemo' }],
+        [{ type: 'photo', src: 'assets/projects/gis-ki/shortestpath.png', alt: 'Raskeste rute mellom to punkter' }],
         [{ type: 'photo', src: 'assets/projects/gis-ki/gis-presentasjon.jpg', alt: 'Presentasjon av GIS- og KI-prosjektet' }],
-        [{ type: 'photo', src: 'assets/projects/gis-ki/bygninger.png', alt: 'Bygninger markert av AI' }],
+        [{ type: 'photo', src: 'assets/projects/gis-ki/bygninger.png', alt: 'Alle bygninger i Kristiansand markert av AI' }],
       ]
     },
     featured: {

@@ -30,14 +30,26 @@
           var pages = flat.map(function (im) {
             return '<div class="fg-page"><img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" /></div>';
           }).join('');
+          // captions live in their own track, below the image stage, so the
+          // arrows (overlaid on the stage) never sit on top of the text — and the
+          // dots sit outside both, pinned to the bottom of the whole panel
+          var caps = flat.map(function (im) {
+            return '<div class="fg-cap-page"><span class="fg-caption">' + im.alt + '</span></div>';
+          }).join('');
           return '<div class="feat-media feat-gallery' + (isSingle ? ' fg-single' : '') + '" data-gallery data-per-page="' + perPage + '" style="--fg-visible:' + perPage + '">' +
+            '<div class="fg-content-wrap">' +
+            '<div class="fg-stage">' +
             '<div class="fg-viewport"><div class="fg-track">' + pages + '</div></div>' +
             '<button class="fg-btn fg-prev" type="button" aria-label="Forrige bilder">‹</button>' +
             '<button class="fg-btn fg-next" type="button" aria-label="Neste bilder">›</button>' +
-            '<div class="fg-dots" role="tablist" aria-label="Bildesider"></div></div>';
+            '</div>' +
+            '<div class="fg-cap-viewport"><div class="fg-cap-track">' + caps + '</div></div>' +
+            '</div>' +
+            '<div class="fg-dots" role="tablist" aria-label="Bildesider"></div>' +
+            '</div>';
         }
         if (m.type === 'photo') {
-          return '<div class="feat-media feat-photo"><img alt="' + m.alt + '" loading="lazy" src="' + m.src + '" /></div>';
+          return '<div class="feat-media feat-photo"><img alt="' + m.alt + '" loading="lazy" src="' + m.src + '" /><span class="fg-caption">' + m.alt + '</span></div>';
         }
         return '<div class="ph feat-media"><span>' + m.label + '</span></div>';
       }
@@ -657,6 +669,7 @@
       if (gal.__galleryInit) return;
       gal.__galleryInit = true;
       var track = gal.querySelector('.fg-track');
+      var capTrack = gal.querySelector('.fg-cap-track');
       var pages = gal.querySelectorAll('.fg-page');
       var prev = gal.querySelector('.fg-prev');
       var next = gal.querySelector('.fg-next');
@@ -708,6 +721,7 @@
       function go(idx) {
         i = Math.max(0, Math.min(maxIndex, idx));
         track.style.transform = 'translateX(' + (-i * (100 / perPage)) + '%)';
+        if (capTrack) capTrack.style.transform = 'translateX(' + (-i * (100 / perPage)) + '%)';
         dots.forEach(function (dot, k) {
           dot.classList.toggle('active', k === i);
           dot.setAttribute('aria-selected', k === i ? 'true' : 'false');
@@ -739,6 +753,7 @@
         var prev = gal.querySelector('.sg-prev');
         var next = gal.querySelector('.sg-next');
         var dotsWrap = gal.querySelector('.sg-dots');
+        var captionEl = gal.querySelector('.sg-caption');
         var n = slides.length;
         if (!track || n === 0) return;
         var i = 0, dots = [];
@@ -765,6 +780,10 @@
             dot.classList.toggle('active', k === i);
             dot.setAttribute('aria-selected', k === i ? 'true' : 'false');
           });
+          if (captionEl) {
+            var img = slides[i] && slides[i].querySelector('img');
+            captionEl.textContent = img ? img.alt : '';
+          }
         }
         if (prev) prev.addEventListener('click', function () { go(i - 1); });
         if (next) next.addEventListener('click', function () { go(i + 1); });
