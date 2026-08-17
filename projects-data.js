@@ -18,27 +18,29 @@ var TECH = {
   java: { label: 'Java', icon: 'https://skillicons.dev/icons?i=java', group: 'lang', extra: ['IS-110'] },
   python: { label: 'Python', icon: 'https://skillicons.dev/icons?i=python', group: 'lang', extra: ['IS-211'] },
   php: { label: 'PHP', icon: 'https://skillicons.dev/icons?i=php', group: 'lang' },
-  kotlin: { label: 'Kotlin', icon: 'https://skillicons.dev/icons?i=kotlin', group: 'lang' },
+  kotlin: { label: 'Kotlin', icon: 'https://skillicons.dev/icons?i=kotlin', group: 'lang', extra: ['Jobb hos Reviver'] },
   typescript: { label: 'TypeScript', icon: 'https://skillicons.dev/icons?i=typescript', group: 'lang' },
   csharp: { label: 'C#', icon: 'https://skillicons.dev/icons?i=cs', group: 'lang' },
   react: { label: 'React', icon: 'https://skillicons.dev/icons?i=react', group: 'framework' },
   dotnet: { label: '.NET', icon: 'https://skillicons.dev/icons?i=dotnet', group: 'framework' },
-  springboot: { label: 'Spring Boot', icon: 'https://skillicons.dev/icons?i=spring', group: 'framework' },
+  springboot: { label: 'Spring Boot', icon: 'https://skillicons.dev/icons?i=spring', group: 'framework', extra: ['Jobb hos Reviver'] },
   tensorflow: { label: 'TensorFlow', icon: 'https://skillicons.dev/icons?i=tensorflow', group: 'framework' },
   tailwind: { label: 'Tailwind', icon: 'https://skillicons.dev/icons?i=tailwind', group: 'framework' },
   postgresql: { label: 'PostgreSQL', icon: 'https://skillicons.dev/icons?i=postgres', group: 'database' },
   postgis: { label: 'PostGIS', icon: 'assets/tech/postgis.png', group: 'database' },
   mysql: { label: 'MySQL', icon: 'https://skillicons.dev/icons?i=mysql', group: 'database' },
   supabase: { label: 'Supabase', icon: 'https://skillicons.dev/icons?i=supabase', group: 'database' },
-  git: { label: 'Git', icon: 'https://skillicons.dev/icons?i=git', group: 'tool', extra: ['IS-114'] },
+  git: { label: 'Git', icon: 'https://skillicons.dev/icons?i=git', group: 'tool', extra: ['IS-114', 'Jobb hos Reviver'] },
   figma: { label: 'Figma', icon: 'https://skillicons.dev/icons?i=figma', group: 'tool', extra: ['IS-104', 'LA i IS-104', 'IS-112'] },
   qgis: { label: 'QGIS', icon: 'assets/tech/qgis.png', group: 'tool' },
   docker: { label: 'Docker', icon: 'https://skillicons.dev/icons?i=docker', group: 'tool', extra: ['IS-105'] },
-  kubernetes: { label: 'Kubernetes', icon: 'https://skillicons.dev/icons?i=kubernetes', group: 'tool' },
-  azure: { label: 'Azure', icon: 'https://skillicons.dev/icons?i=azure', group: 'tool' },
+  kubernetes: { label: 'Kubernetes', icon: 'https://skillicons.dev/icons?i=kubernetes', group: 'tool', extra: ['Jobb hos Reviver'] },
+  azure: { label: 'Azure', icon: 'https://skillicons.dev/icons?i=azure', group: 'tool', extra: ['Jobb hos Reviver']},
   wordpress: { label: 'WordPress', icon: 'https://skillicons.dev/icons?i=wordpress', group: 'tool' },
   arcgis: { label: 'ArcGIS', icon: 'assets/tech/arcgis.png', group: 'tool' },
-  claudedesign: { label: 'Claude design', nm: 'Claude-design', icon: 'assets/tech/claude-design.png', group: 'tool' }
+  claudedesign: { label: 'Claude design', nm: 'Claude-design', icon: 'assets/tech/claude-design.png', group: 'tool' },
+  swift: { label: 'Swift', icon: 'https://skillicons.dev/icons?i=swift', group: 'lang', extra: ['Jobb hos Reviver'] },
+  googlecloud: {label: 'Google Cloud', icon: 'https://skillicons.dev/icons?i=gcp', group: 'tool', extra: ['Jobb hos Reviver'] }
 };
 
 var SKILL_GROUPS = [
@@ -259,13 +261,13 @@ var PROJECTS = [
     id: 'brawlstars', title: 'BrawlStarsNorge wiki', school: false,
     teaser: 'Mitt første egne nettprosjekt — en wiki om Brawl Stars.',
     category: 'Hobbyprosjekt', year: 'Sommer 2024', yearSort: 2024.5, rating: 3,
-    tech: ['html', 'css', 'js', 'python'],
+    tech: ['html', 'css', 'js', 'python', 'googlecloud'],
     description: [
       'Mitt aller første egne prosjekt. Startet som en enkel HTML/CSS-side, men ble etter hvert bygget om til å bruke Jekyll for å generere sider dynamisk — spillerprofiler og klubbsider opprettes automatisk ut fra en mal med Jekyll',
 
       'I tillegg har jeg laget flere Python-skript som henter spillerdata fra Brawl Stars sitt offisielle API, blant annet kamplogger, vinn/tap-statistikk og turneringsresultat. Skriptene kjøres jevnlig via en lokal cron-jobb og lagrer resultatet som JSON- og YAML-filer, som Jekyll deretter bruker til å rendre statistikksidene. Oppdaterte filer blir automatisk committet og pushet til GitHub via en GitHub Actions-workflow, slik at siden alltid viser fersk statistikk uten at jeg må gjøre noe manuelt.',
 
-      'Jeg har ikke gjort så mye på prosjektet på en stund, men planen videre for prosjektet er å kjøre cron-jobbene på en server, og vise enda kulere statistikk for hver spiller som ingen andre nettsider gjør.'
+      'Jeg har ikke gjort så mye på prosjektet på en stund, men planen videre for prosjektet er å kjøre cron-jobbene på en server, og vise enda kulere statistikk for hver spiller som ingen andre nettsider gjør. Jeg har prøvd meg litt på dette med en VM på Google Cloud, men ble sittende fast etter limitation fra APIet og free tier VMs'
     ],
     links: [
       { label: 'Kildekode', href: 'https://github.com/simholmen/BrawlStarsNorgeWiki', external: true },
