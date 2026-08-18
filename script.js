@@ -426,12 +426,14 @@
         if (label) map[label] = row;
       });
       var projSection = document.getElementById('projects');
+      var projToolbar = projSection && projSection.querySelector('.proj-toolbar');
       var nav = document.querySelector('header.nav');
 
       function openProject(row) {
-        if (projSection) {
+        var scrollTarget = projToolbar || projSection;
+        if (scrollTarget) {
           var navH = nav ? nav.offsetHeight : 72;
-          var top = projSection.getBoundingClientRect().top + window.pageYOffset - navH - 14;
+          var top = scrollTarget.getBoundingClientRect().top + window.pageYOffset - navH - 14;
           window.scrollTo({ top: top, behavior: 'smooth' });
         }
         setTimeout(function () { row.click(); }, 520);
@@ -614,6 +616,7 @@
       var tiles = document.querySelectorAll('#tech .skill');
       if (!tiles.length) return;
       var projSection = document.getElementById('projects');
+      var projToolbar = projSection && projSection.querySelector('.proj-toolbar');
       var nav = document.querySelector('header.nav');
 
       Array.prototype.forEach.call(tiles, function (tile) {
@@ -625,9 +628,10 @@
           var name = img.getAttribute('alt');
           if (!name) return;
           if (window.__filterProjectsByTech) window.__filterProjectsByTech(name);
-          if (projSection) {
+          var scrollTarget = projToolbar || projSection;
+          if (scrollTarget) {
             var navH = nav ? nav.offsetHeight : 72;
-            var top = projSection.getBoundingClientRect().top + window.pageYOffset - navH - 14;
+            var top = scrollTarget.getBoundingClientRect().top + window.pageYOffset - navH - 14;
             window.scrollTo({ top: top, behavior: 'smooth' });
           }
         });
@@ -675,13 +679,16 @@
       var next = gal.querySelector('.fg-next');
       var dotsWrap = gal.querySelector('.fg-dots');
       var total = pages.length;
-      var perPage = parseInt(gal.getAttribute('data-per-page'), 10) || 1;
+      var basePerPage = parseInt(gal.getAttribute('data-per-page'), 10) || 1;
       if (!track || total === 0) return;
       var i = 0;
-      // last window start: with e.g. 6 images shown 2 at a time, the window can
-      // start at 0..4 (images [4,5] being the last valid pair) — this is a sliding
-      // window over individual images, not a jump to the next page of images
-      var maxIndex = Math.max(0, total - perPage);
+      var perPage = basePerPage;
+      var maxIndex = 0;
+      var dots = [];
+      // on phones, a page normally showing 2 side-by-side screenshots is
+      // collapsed to 1 full-width image at a time — 2-up doesn't leave enough
+      // room per image on a narrow screen
+      var mobileQuery = window.matchMedia('(max-width: 560px)');
 
       // single-image-per-page galleries have no grid partner to size against (unlike
       // the featured card, where the text column sets the row height) — so size the
@@ -699,25 +706,6 @@
         }
       }
 
-      if (maxIndex <= 0) {
-        if (prev) prev.hidden = true;
-        if (next) next.hidden = true;
-        if (dotsWrap) dotsWrap.hidden = true;
-      }
-
-      var dots = [];
-      if (dotsWrap && maxIndex > 0) {
-        for (var d = 0; d <= maxIndex; d++) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('role', 'tab');
-          b.setAttribute('aria-label', 'Side ' + (d + 1));
-          (function (idx) { b.addEventListener('click', function () { go(idx); }); })(d);
-          dotsWrap.appendChild(b);
-          dots.push(b);
-        }
-      }
-
       function go(idx) {
         i = Math.max(0, Math.min(maxIndex, idx));
         track.style.transform = 'translateX(' + (-i * (100 / perPage)) + '%)';
@@ -730,9 +718,38 @@
         if (next) next.disabled = i >= maxIndex;
       }
 
+      function layout() {
+        var forcedSingle = basePerPage > 1 && mobileQuery.matches;
+        perPage = forcedSingle ? 1 : basePerPage;
+        gal.classList.toggle('fg-forced-single', forcedSingle);
+        gal.style.setProperty('--fg-visible', perPage);
+        maxIndex = Math.max(0, total - perPage);
+
+        if (dotsWrap) dotsWrap.innerHTML = '';
+        dots = [];
+        if (dotsWrap && maxIndex > 0) {
+          for (var d = 0; d <= maxIndex; d++) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('role', 'tab');
+            b.setAttribute('aria-label', 'Side ' + (d + 1));
+            (function (idx) { b.addEventListener('click', function () { go(idx); }); })(d);
+            dotsWrap.appendChild(b);
+            dots.push(b);
+          }
+        }
+        if (prev) prev.hidden = maxIndex <= 0;
+        if (next) next.hidden = maxIndex <= 0;
+        if (dotsWrap) dotsWrap.hidden = maxIndex <= 0;
+
+        go(i);
+      }
+
       if (prev) prev.addEventListener('click', function () { go(i - 1); });
       if (next) next.addEventListener('click', function () { go(i + 1); });
-      go(0);
+      if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', layout);
+      else if (mobileQuery.addListener) mobileQuery.addListener(layout);
+      layout();
     }
     window.__initGallery = initGallery;
     (function () {

@@ -266,6 +266,16 @@
       font-size: 16.5px;
     }
 
+    /* hover/tap variants swapped by capability below — only one is ever shown */
+    .tech-hint {
+      color: var(--ink-faint);
+      font-size: 14px;
+    }
+
+    .tech-hint .hint-tap {
+      display: none;
+    }
+
     /* ---------- Placeholder image ---------- */
     .ph {
       position: relative;
@@ -866,6 +876,7 @@
 
     .feat-media {
       min-height: 320px;
+      min-width: 0;
     }
 
     /* once an image is in place, let it define the panel height */
@@ -888,6 +899,12 @@
 
     .fg-content-wrap {
       align-self: center;
+      /* .feat-gallery has no explicit grid-template-columns, so its single
+         implicit column is auto-sized — without this, the column's automatic
+         minimum size is based on the *unscaled* intrinsic width of the images
+         inside (percentages don't count for intrinsic sizing), which can blow
+         the whole gallery out past its box on narrow (mobile) screens */
+      min-width: 0;
     }
 
     /* while a feat-card's description is expanded, the gallery panel grows taller
@@ -1051,6 +1068,20 @@
     .feat-gallery.fg-single .fg-page,
     .feat-gallery.fg-single .fg-cap-page {
       padding-right: 0;
+    }
+
+    /* on narrow screens, galleries normally showing 2 images per page are
+       collapsed to 1 (see initGallery in script.js, which toggles this class) */
+    .feat-gallery.fg-forced-single .fg-page,
+    .feat-gallery.fg-forced-single .fg-cap-page {
+      padding-right: 0;
+    }
+
+    /* these images are tall phone-app screenshots — at full box width they read
+       oversized once collapsed to one at a time, so shrink and center them */
+    .feat-gallery.fg-forced-single .fg-page img {
+      width: 70%;
+      margin: 0 auto;
     }
 
     /* featured project panel filled with a single photo */
@@ -2661,6 +2692,14 @@
 
     /* touch devices: no real hover, so skip the lift + tooltip and just let the tap register as a click */
     @media (hover: none) {
+      .tech-hint .hint-hover {
+        display: none;
+      }
+
+      .tech-hint .hint-tap {
+        display: inline;
+      }
+
       .skill:hover {
         transform: none;
         box-shadow: none;
