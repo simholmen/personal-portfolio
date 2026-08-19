@@ -612,12 +612,55 @@
 
     .grp-h .k {
       color: var(--accent);
+      cursor: pointer;
+    }
+
+    .tech-stage {
+      position: relative;
+    }
+
+    /* clip only while the tiles/game are actively sliding — left on permanently
+       it would cut off the skill tiles' hover tooltip, which pops up above them */
+    .tech-stage.tech-clipping {
+      overflow: hidden;
+    }
+
+    #dinoCanvas {
+      display: none;
+      background: var(--card);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform .35s ease, opacity .3s ease;
+    }
+
+    #dinoCanvas.active {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .skills {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
+      transition: transform .35s ease, opacity .3s ease;
+    }
+
+    /* animated in/out state for the tech-tile ↔ game swap; the "-instant"
+       variant snaps to the offscreen position with no transition, so it can
+       be applied as a starting point right before animating back in */
+    .tech-offscreen {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    .tech-offscreen-instant {
+      transition: none;
+      transform: translateX(100%);
+      opacity: 0;
     }
 
     .skill {
@@ -2715,6 +2758,11 @@
 
       .skill.skill-link:hover img {
         transform: none;
+      }
+
+      /* the tech-easter-egg is desktop-only, so don't hint it's tappable here */
+      .grp-h .k {
+        cursor: default;
       }
     }
 

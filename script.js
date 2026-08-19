@@ -176,8 +176,8 @@
         skillGroupsEl.innerHTML = SKILL_GROUPS.map(function (g) {
           var ids = Object.keys(TECH).filter(function (id) { return TECH[id].group === g.key; });
           var tiles = ids.map(renderSkillTile).join('');
-          return '<div class="skill-group reveal"><h3 class="grp-h"><span class="k">$</span> ' + g.heading + '</h3>' +
-            '<div class="skills">' + tiles + '</div></div>';
+          return '<div class="skill-group reveal" data-group="' + g.key + '"><h3 class="grp-h"><span class="k">$</span> ' + g.heading + '</h3>' +
+            '<div class="tech-stage"><div class="skills">' + tiles + '</div></div></div>';
         }).join('');
       }
     })();
