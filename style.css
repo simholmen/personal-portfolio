@@ -617,6 +617,11 @@
 
     .tech-stage {
       position: relative;
+    }
+
+    /* clip only while the tiles/game are actively sliding — left on permanently
+       it would cut off the skill tiles' hover tooltip, which pops up above them */
+    .tech-stage.tech-clipping {
       overflow: hidden;
     }
 
@@ -2753,6 +2758,11 @@
 
       .skill.skill-link:hover img {
         transform: none;
+      }
+
+      /* the tech-easter-egg is desktop-only, so don't hint it's tappable here */
+      .grp-h .k {
+        cursor: default;
       }
     }
 

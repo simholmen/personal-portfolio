@@ -2,6 +2,11 @@
 (function () {
   var canvas = document.getElementById('dinoCanvas');
   if (!canvas) return;
+
+  // touch devices (same signal the tech-hint text already keys off of) don't
+  // get the easter egg — precise jump timing on a small tap target isn't fun
+  if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+
   var ctx = canvas.getContext('2d');
 
   var playerImg = new Image();
@@ -214,8 +219,12 @@
     var stage = group.querySelector('.tech-stage');
     var tiles = stage.querySelector('.skills');
     activeGroup = null;
+    // only clip while something is actually sliding — clipping the tiles'
+    // hover tooltip (which pops up above them) the rest of the time would hide it
+    stage.classList.add('tech-clipping');
     slideGameOut(function () {
       slideTilesIn(stage, tiles);
+      setTimeout(function () { stage.classList.remove('tech-clipping'); }, ANIM_MS);
       if (done) done();
     });
   }
@@ -226,8 +235,10 @@
     if (!stage || !tiles) { if (done) done(); return; }
     var rect = tiles.getBoundingClientRect();
     activeGroup = group;
+    stage.classList.add('tech-clipping');
     slideTilesOut(stage, tiles, function () {
       slideGameIn(stage, rect);
+      setTimeout(function () { stage.classList.remove('tech-clipping'); }, ANIM_MS);
       if (done) done();
     });
   }
