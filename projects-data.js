@@ -35,12 +35,12 @@ var TECH = {
   qgis: { label: 'QGIS', icon: 'assets/tech/qgis.png', group: 'tool' },
   docker: { label: 'Docker', icon: 'https://skillicons.dev/icons?i=docker', group: 'tool', extra: ['IS-105'] },
   kubernetes: { label: 'Kubernetes', icon: 'https://skillicons.dev/icons?i=kubernetes', group: 'tool', extra: ['Jobb hos Reviver'] },
-  azure: { label: 'Azure', icon: 'https://skillicons.dev/icons?i=azure', group: 'tool', extra: ['Jobb hos Reviver']},
+  azure: { label: 'Azure', icon: 'https://skillicons.dev/icons?i=azure', group: 'tool', extra: ['Jobb hos Reviver'] },
   wordpress: { label: 'WordPress', icon: 'https://skillicons.dev/icons?i=wordpress', group: 'tool' },
   arcgis: { label: 'ArcGIS', icon: 'assets/tech/arcgis.png', group: 'tool' },
   claudedesign: { label: 'Claude design', nm: 'Claude-design', icon: 'assets/tech/claude-design.png', group: 'tool' },
   swift: { label: 'Swift', icon: 'https://skillicons.dev/icons?i=swift', group: 'lang', extra: ['Jobb hos Reviver'] },
-  googlecloud: {label: 'Google Cloud', icon: 'https://skillicons.dev/icons?i=gcp', group: 'tool', extra: ['Jobb hos Reviver'] }
+  googlecloud: { label: 'Google Cloud', icon: 'https://skillicons.dev/icons?i=gcp', group: 'tool', extra: ['Jobb hos Reviver'] }
 };
 
 var SKILL_GROUPS = [
@@ -155,7 +155,7 @@ var PROJECTS = [
         [{ type: 'photo', src: 'assets/projects/php/matchatbot.png', alt: 'Chatbot hjemmeside' }],
       ]
     },
-    
+
   },
   {
     id: 'gruppecv', title: 'Bachelorgruppe CV', school: true,
@@ -260,14 +260,15 @@ var PROJECTS = [
   {
     id: 'brawlstars', title: 'BrawlStarsNorge wiki', school: false,
     teaser: 'Mitt første egne nettprosjekt — en wiki om Brawl Stars.',
-    category: 'Hobbyprosjekt', year: 'Sommer 2024', yearSort: 2024.5, rating: 3,
-    tech: ['html', 'css', 'js', 'python', 'googlecloud'],
+    category: 'Hobbyprosjekt', year: 'Sommer 2024', yearSort: 2024.5, rating: 4,
+    tech: ['html', 'css', 'js', 'python', 'googlecloud', 'supabase', 'postgresql', 'claudedesign'],
     description: [
-      'Mitt aller første egne prosjekt. Startet som en enkel HTML/CSS-side, men ble etter hvert bygget om til å bruke Jekyll for å generere sider dynamisk — spillerprofiler og klubbsider opprettes automatisk ut fra en mal med Jekyll',
+      'Mitt aller første egne prosjekt som jeg startet i sommeren i 2024. Prosjektet startet som et helt enkelt html/css nettside jeg bygget for hånd, for i vise frem noe gøy til noen venner. Nettsiden besto av en styles.css, en index.html og et par ekstra sider, for å ligne på Wikipedia.',
 
-      'I tillegg har jeg laget flere Python-skript som henter spillerdata fra Brawl Stars sitt offisielle API, blant annet kamplogger, vinn/tap-statistikk og turneringsresultat. Skriptene kjøres jevnlig via en lokal cron-jobb og lagrer resultatet som JSON- og YAML-filer, som Jekyll deretter bruker til å rendre statistikksidene. Oppdaterte filer blir automatisk committet og pushet til GitHub via en GitHub Actions-workflow, slik at siden alltid viser fersk statistikk uten at jeg må gjøre noe manuelt.',
+      'Jeg ble svært fornøyd med resultatet selv om det ikke var veldig teknisk utfordrende, men i sommeren 2025 fortsatte jeg å bygge videre på prosjektet. Jeg tok i bruk Jekyll, et statisk sidegenerator-verktøy som lar meg lage maler for å generere sider dynamisk. Jeg laget en mal for spillerprofiler og klubbsider, og nå kan jeg enkelt opprette nye sider ved å fylle ut en YAML-fil med data som Jekyll bruker til å rendre sidene. I tillegg prøvde jeg å lage noen Python-scripts for å hente spillerdata fra Brawl Stars sit offisielle API, blant annet kamplogger, vinn/tap-statistikk og turneringsresultat. Jeg kjørte dem jevnlig via en lokal cron-jobb på min egen pc, og lagret resultatet som JSON- og YAML-filer som Jekyll deretter bruker til å rendre statistikksidene. Oppdaterte filer ble automatisk committet og pushet til GitHub via en GitHub Actions-workflow.',
 
-      'Jeg har ikke gjort så mye på prosjektet på en stund, men planen videre for prosjektet er å kjøre cron-jobbene på en server, og vise enda kulere statistikk for hver spiller som ingen andre nettsider gjør. Jeg har prøvd meg litt på dette med en VM på Google Cloud, men ble sittende fast etter limitation fra APIet og free tier VMs'
+      'Denne måten å gjøre det på fungerte til en viss grad, men hadde en del svakheter, jeg måtte blant annet ha pcen påskrudd hele tiden. I august 2026 gjorde jeg derfor en større oppdatering, hvor jeg videreførte ideen om å samle statistikk fra APIet, til en egen side som viser mer detaljert statistikk om ranked. Denne gangen satte jeg opp innhentingen som en cron-jobb på en egen VM (en droplet), som henter og lagrer kampdata hvert 30. minutt. Dataen lagres nå i en ordentlig database på Supabase istedenfor å genereres som statiske filer, og den nye siden (rankedstats/stats.html) henter tallene direkte derfra i sanntid. Det gjorde det mulig å vise langt mer detaljert statistikk enn før: winrate fordelt på modus, brawler og lagkamerater, kamphistorikk og rank-progresjon per spiller, uten at noe av dette lenger er avhengig av en Jekyll-rebuild."'
+
     ],
     links: [
       { label: 'Kildekode', href: 'https://github.com/simholmen/BrawlStarsNorgeWiki', external: true },
