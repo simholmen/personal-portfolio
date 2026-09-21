@@ -28,7 +28,10 @@
           var perPage = (m.pages[0] && m.pages[0].length) || 1;
           var isSingle = perPage <= 1;
           var pages = flat.map(function (im) {
-            return '<div class="fg-page"><img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" /></div>';
+            var media = im.type === 'video'
+              ? '<video autoplay muted loop playsinline preload="metadata" aria-label="' + im.alt + '"><source src="' + im.src + '" type="video/mp4" /></video>'
+              : '<img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" />';
+            return '<div class="fg-page">' + media + '</div>';
           }).join('');
           // captions live in their own track, below the image stage, so the
           // arrows (overlaid on the stage) never sit on top of the text — and the

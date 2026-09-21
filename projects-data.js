@@ -74,7 +74,7 @@ var PROJECTS = [
       ]
     },
     featured: {
-      order: 2, idxLabel: '02 — Geodata sommerprosjekt 2026',
+      order: 2, idxLabel: 'Geodata sommerprosjekt 2026',
       headline: 'Statusdashboard for Norsk luftambulanse',
       blurb: 'Et statusdashboard for Norsk Luftambulanse Teknologi som overvåker kartlag og datakilder i deres operative kartløsninger. Løsningen sjekker automatisk at datakildene er tilgjengelige og oppdaterte, og blir varslet når noe feiler. Løsningen omfatter også jevnlige synkroniseringsjobber fra eksterne kilder.'
     }
@@ -110,13 +110,14 @@ var PROJECTS = [
     ],
     media: {
       type: 'gallery', pages: [
-        [{ src: 'assets/projects/bachelor/reviver-login.png', alt: 'Innloggingsside' }, { src: 'assets/projects/bachelor/reviver-quiz.png', alt: 'Gjett avfallstype' }],
-        [{ src: 'assets/projects/bachelor/reviver-result.png', alt: 'Resultat av scanning med treffsikkerhet' }, { src: 'assets/projects/bachelor/reviver-level.png', alt: 'Poeng, nivå og streak etter en scanning' }],
-        [{ src: 'assets/projects/bachelor/reviver-leaderboard.png', alt: 'Leaderboard' }, { src: 'assets/projects/bachelor/reviver-profile.png', alt: 'Profil med nivå' }]
+        [{ type: 'video', src: 'assets/projects/bachelor/Bachelordemo.mp4', alt: 'Demo av appen' }, { src: 'assets/projects/bachelor/reviver-login.png', alt: 'Innloggingsside' }],
+        [{ src: 'assets/projects/bachelor/reviver-quiz.png', alt: 'Gjett avfallstype' }, { src: 'assets/projects/bachelor/reviver-result.png', alt: 'Resultat av scanning med treffsikkerhet' }],
+        [{ src: 'assets/projects/bachelor/reviver-level.png', alt: 'Poeng, nivå og streak etter en scanning' }, { src: 'assets/projects/bachelor/reviver-leaderboard.png', alt: 'Leaderboard' }],
+        [{ src: 'assets/projects/bachelor/reviver-profile.png', alt: 'Profil med nivå' }]
       ]
     },
     featured: {
-      order: 1, idxLabel: '01 — Bachelor-prosjekt',
+      order: 1, idxLabel: 'Bachelor-prosjekt',
       headline: 'Kildesorteringsapp med gamifisering og maskinlæring',
       blurb: 'En mobilapp som hjelper folk å kildesortere riktig. Brukeren tar bilde av en gjenstand, og en maskinlæringsmodell gjenkjenner materialet og foreslår riktig avfallstype. Gamifisering med poeng, nivåer og utfordringer motiverer til å sortere mer over tid.'
     }
@@ -220,7 +221,7 @@ var PROJECTS = [
       ]
     },
     featured: {
-      order: 3, idxLabel: '03 — Semesterprosjekt (IS-218)',
+      order: 3, idxLabel: 'Semesterprosjekt (IS-218)',
       headline: 'AI drevet rutevalg i en krisesituasjon',
       blurb: 'En løsning som kombinerer GIS og KI for samfunnsberedskap. Gruppen min undersøkte om Kristiansand er godt nok dekket av beredskapstjenester, og utviklet et verktøy som finner den raskeste ruten til nærmeste politi, brann og helse — basert på en KI-modell som markerer bygninger fra flyfoto.'
     }

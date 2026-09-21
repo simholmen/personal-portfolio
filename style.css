@@ -68,31 +68,6 @@
       padding: 0 28px;
     }
 
-    /* ---------- Mono label ---------- */
-    .label {
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-ink);
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .label::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 2px;
-      background: var(--accent);
-      transform: rotate(45deg);
-    }
-
-    .label .num {
-      color: var(--ink-faint);
-    }
-
     /* ---------- Nav ---------- */
     header.nav {
       position: sticky;
@@ -981,11 +956,8 @@
       align-self: start;
     }
 
-    .fg-page:last-child {
-      padding-right: 0;
-    }
-
-    .fg-page img {
+    .fg-page img,
+    .fg-page video {
       width: 100%;
       height: auto;
       display: block;
@@ -1014,9 +986,6 @@
       padding-right: 14px;
     }
 
-    .fg-cap-page:last-child {
-      padding-right: 0;
-    }
 
     /* small centered caption under a project screenshot */
     .fg-caption {
@@ -2506,15 +2475,6 @@
       width: 320px;
       height: 320px;
       background: radial-gradient(circle, oklch(0.62 0.085 188 / 0.4), transparent 70%);
-    }
-
-    .contact-card .label {
-      color: oklch(0.85 0.06 200);
-      position: relative;
-    }
-
-    .contact-card .label::before {
-      background: var(--accent-2);
     }
 
     .contact-card h2 {
