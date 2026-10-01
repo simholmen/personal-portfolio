@@ -28,7 +28,10 @@
           var perPage = (m.pages[0] && m.pages[0].length) || 1;
           var isSingle = perPage <= 1;
           var pages = flat.map(function (im) {
-            return '<div class="fg-page"><img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" /></div>';
+            var media = im.type === 'video'
+              ? '<video autoplay muted loop playsinline preload="metadata" aria-label="' + im.alt + '"><source src="' + im.src + '" type="video/mp4" /></video>'
+              : '<img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" />';
+            return '<div class="fg-page">' + media + '</div>';
           }).join('');
           // captions live in their own track, below the image stage, so the
           // arrows (overlaid on the stage) never sit on top of the text — and the
@@ -416,6 +419,26 @@
       });
     })();
 
+    /* ---- smooth scroll to a live target, re-reading its position every frame so
+       lazy-loaded images reflowing mid-scroll (e.g. the journey section on mobile)
+       can't leave the scroll short of where the target actually ended up ---- */
+    (function () {
+      window.__smoothScrollTo = function (getTop, duration) {
+        duration = duration || 500;
+        var startY = window.pageYOffset;
+        var startTime = null;
+        function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function step(now) {
+          if (startTime === null) startTime = now;
+          var t = Math.min(1, (now - startTime) / duration);
+          var target = getTop();
+          window.scrollTo(0, startY + (target - startY) * ease(t));
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      };
+    })();
+
     /* ---- link project names inside tech tooltips to the archive + open the modal ---- */
     (function () {
       var rows = document.querySelectorAll('.proj-row');
@@ -433,8 +456,9 @@
         var scrollTarget = projToolbar || projSection;
         if (scrollTarget) {
           var navH = nav ? nav.offsetHeight : 72;
-          var top = scrollTarget.getBoundingClientRect().top + window.pageYOffset - navH - 14;
-          window.scrollTo({ top: top, behavior: 'smooth' });
+          window.__smoothScrollTo(function () {
+            return scrollTarget.getBoundingClientRect().top + window.pageYOffset - navH - 14;
+          });
         }
         setTimeout(function () { row.click(); }, 520);
       }
@@ -631,8 +655,9 @@
           var scrollTarget = projToolbar || projSection;
           if (scrollTarget) {
             var navH = nav ? nav.offsetHeight : 72;
-            var top = scrollTarget.getBoundingClientRect().top + window.pageYOffset - navH - 14;
-            window.scrollTo({ top: top, behavior: 'smooth' });
+            window.__smoothScrollTo(function () {
+              return scrollTarget.getBoundingClientRect().top + window.pageYOffset - navH - 14;
+            });
           }
         });
       });
