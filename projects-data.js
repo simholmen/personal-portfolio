@@ -30,6 +30,7 @@ var TECH = {
   postgis: { label: 'PostGIS', icon: 'assets/tech/postgis.png', group: 'database' },
   mysql: { label: 'MySQL', icon: 'https://skillicons.dev/icons?i=mysql', group: 'database' },
   supabase: { label: 'Supabase', icon: 'https://skillicons.dev/icons?i=supabase', group: 'database' },
+  firebase: { label: 'Firebase', icon: 'https://skillicons.dev/icons?i=firebase', group: 'database' },
   git: { label: 'Git', icon: 'https://skillicons.dev/icons?i=git', group: 'tool', extra: ['IS-114', 'Jobb hos Reviver'] },
   figma: { label: 'Figma', icon: 'https://skillicons.dev/icons?i=figma', group: 'tool', extra: ['IS-104', 'LA i IS-104', 'IS-112'] },
   qgis: { label: 'QGIS', icon: 'assets/tech/qgis.png', group: 'tool' },
@@ -52,6 +53,20 @@ var SKILL_GROUPS = [
 
 // Ordered newest-first by yearSort (matches the archive's default date sort).
 var PROJECTS = [
+  {
+    id: 'sommerjobber', title: 'Sommerjobber 27', school: false,
+    teaser: 'Delt oversikt over IT-sommerjobber, med privat søknadsstatus for hver bruker.',
+    category: 'Personlig', year: 'Høst 2026', yearSort: 2026.7, rating: 2,
+    tech: ['typescript', 'react', 'firebase', 'html', 'css', 'claudedesign'],
+    description: [
+      'En webapp for å holde oversikt over sommerjobbene for sommeren 2027. Den startet som et Excel-ark med firmaer, lenker og frister, og ble gjort om til en app som også andre studenter kan bruke. Jobbene er felles for alle, mens status (søkt, tester, intervju, tilbud eller avvist), søkt-dato og kommentarer er private for hver bruker. Appen har visninger for hva som haster i dag, en tavle over søknadene, en søkbar tabell over alle jobbene og en kalender med frister. Når årets dato mangler, anslås den ut fra når jobben åpnet og hadde frist året før. Det er kanskje ikke den mest krevende tekiske løsningen jeg her laget, men det er noe jeg faktisk bruker selv, og som jeg håper andre studenter kan ha nytte av.',
+
+      'Appen er bygd med React, TypeScript og Vite, med Firebase Authentication for innlogging, Firestore som database og Firebase Hosting. Tilgangsstyringen ligger i Firestore-reglene: bare admin kan endre de felles jobbene, mens alle kan endre eller skjule en jobb bare for seg selv og legge inn egne jobber som bare de ser. De egne endringene legges oppå den felles jobben, så rettelser fra admin kommer med i feltene brukeren ikke har endret selv, og brukeren får beskjed når admin har endret et felt de selv har overstyrt. Brukere kan også anbefale arbeidsplasser til hverandre, og det finnes en gjestemodus der man kan prøve appen uten å lage bruker.'
+    ],
+    links: [
+      { label: 'Nettside', href: 'https://jobsearching-7e68e.web.app', external: true }
+    ]
+  },
   {
     id: 'geodata2026', title: 'Geodata sommerprosjekt 2026', school: false,
     teaser: 'Automatisk sykronisering og statussjekker for kartlag for Norsk luftambulansen.',
@@ -124,10 +139,10 @@ var PROJECTS = [
   {
     id: 'algard', title: 'Kartprosjekt med Ålgård turstilag', school: false,
     teaser: 'Digital kartlegging av turstier for Ålgård turstilag.',
-    category: 'Samarbeidsprosjekt', year: '2026', yearSort: 2026, rating: 3,
-    tech: ['html', 'css', 'js', 'postgresql', 'postgis', 'git', 'react', 'supabase'],
+    category: 'Samarbeidsprosjekt', year: '2026', yearSort: 2026, rating: 4,
+    tech: ['html', 'css', 'js', 'postgresql', 'postgis', 'git', 'react', 'supabase', 'qgis'],
     description: ['Et kartprosjekt i samarbeid med Ålgård turstilag for å kartlegge og presentere turstiene deres digitalt — en demoversjon som viser hvordan et fremtidig kartverktøy for laget kan se ut. Løsningen er bygd med React, Leaflet og react-leaflet for selve kartvisningen, med turstidata lagret som GeoJSON i Supabase. Kartet har en enkel visningsmodus for besøkende, med geolokasjon som viser brukerens egen posisjon, og en egen admin-modus med tegneverktøy for å opprette og redigere turstier direkte i kartet.',
-      'Dette er et prosjekt jeg enda jobber med, og er derfor ikke ferdig. Nettsiden er bare en demo versjon av noe av det som er laget så langt.'
+      'Dette er et prosjekt jeg enda jobber med, og og blir forbedret hele tiden. Status på prosjektet idag (1. oktober 2026) er at en fungerende versjon er nå ferdig. Prosjektet er nå gitt over til Ålgård turstilag, som gir tilbakemeldinger og fyller ut dataen fra sine fysiske kart over til det digitale kartet. Videre utvikling vil kanskje være å lage en app som viser turstiene på en god måte.'
     ],
     links: [
       { label: 'Kildekode', href: 'https://github.com/simholmen/turstilag', external: true },
@@ -261,13 +276,15 @@ var PROJECTS = [
     id: 'brawlstars', title: 'BrawlStarsNorge wiki', school: false,
     teaser: 'Mitt første egne nettprosjekt — en wiki om Brawl Stars.',
     category: 'Hobbyprosjekt', year: 'Sommer 2024', yearSort: 2024.5, rating: 3,
-    tech: ['html', 'css', 'js', 'python', 'googlecloud'],
+    tech: ['html', 'css', 'js', 'python', 'googlecloud', 'supabase'],
     description: [
       'Mitt aller første egne prosjekt. Startet som en enkel HTML/CSS-side, men ble etter hvert bygget om til å bruke Jekyll for å generere sider dynamisk — spillerprofiler og klubbsider opprettes automatisk ut fra en mal med Jekyll',
 
       'I tillegg har jeg laget flere Python-skript som henter spillerdata fra Brawl Stars sitt offisielle API, blant annet kamplogger, vinn/tap-statistikk og turneringsresultat. Skriptene kjøres jevnlig via en lokal cron-jobb og lagrer resultatet som JSON- og YAML-filer, som Jekyll deretter bruker til å rendre statistikksidene. Oppdaterte filer blir automatisk committet og pushet til GitHub via en GitHub Actions-workflow, slik at siden alltid viser fersk statistikk uten at jeg må gjøre noe manuelt.',
 
-      'Jeg har ikke gjort så mye på prosjektet på en stund, men planen videre for prosjektet er å kjøre cron-jobbene på en server, og vise enda kulere statistikk for hver spiller som ingen andre nettsider gjør. Jeg har prøvd meg litt på dette med en VM på Google Cloud, men ble sittende fast etter limitation fra APIet og free tier VMs'
+      'Jeg har ikke gjort så mye på prosjektet på en stund, men planen videre for prosjektet er å kjøre cron-jobbene på en server, og vise enda kulere statistikk for hver spiller som ingen andre nettsider gjør. Jeg har prøvd meg litt på dette med en VM på Google Cloud, men ble sittende fast etter limitation fra APIet og free tier VMs',
+
+      'Oppdatering: 1. oktober 2026 - Jeg har nå fortsatt med å lage automatisk oppdatering av spillerdata. Jeg gjorde det ved å bruke en VM fra DigitalOcean, hvor jeg kjører scripts for å hente spillerdata fra Brawl stars API, og lagrer dette i Supabase. Så blir den hentet til og brukt i en helt ny seksjon for kun spillerdata, som viser masse forskjellig statistikk. Den har per nå stått på i en måned og samlet over 5000 kamper.'
     ],
     links: [
       { label: 'Kildekode', href: 'https://github.com/simholmen/BrawlStarsNorgeWiki', external: true },
