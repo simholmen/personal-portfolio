@@ -125,10 +125,10 @@ var PROJECTS = [
     ],
     media: {
       type: 'gallery', pages: [
-        [{ type: 'video', src: 'assets/projects/bachelor/Bachelordemo.mp4', alt: 'Demo av appen' }, { src: 'assets/projects/bachelor/reviver-login.png', alt: 'Innloggingsside' }],
-        [{ src: 'assets/projects/bachelor/reviver-quiz.png', alt: 'Gjett avfallstype' }, { src: 'assets/projects/bachelor/reviver-result.png', alt: 'Resultat av scanning med treffsikkerhet' }],
-        [{ src: 'assets/projects/bachelor/reviver-level.png', alt: 'Poeng, nivå og streak etter en scanning' }, { src: 'assets/projects/bachelor/reviver-leaderboard.png', alt: 'Leaderboard' }],
-        [{ src: 'assets/projects/bachelor/reviver-profile.png', alt: 'Profil med nivå' }]
+        [{ type: 'video', src: 'assets/projects/bachelor/Bachelordemo.mp4', alt: 'Demo av appen', width: 1180, height: 2378 }],
+        [{ src: 'assets/projects/bachelor/reviver-login.png', alt: 'Innloggingsside' }, { src: 'assets/projects/bachelor/reviver-quiz.png', alt: 'Gjett avfallstype' }],
+        [{ src: 'assets/projects/bachelor/reviver-result.png', alt: 'Resultat av scanning med treffsikkerhet' }, { src: 'assets/projects/bachelor/reviver-level.png', alt: 'Poeng, nivå og streak etter en scanning' }],
+        [{ src: 'assets/projects/bachelor/reviver-leaderboard.png', alt: 'Leaderboard' }, { src: 'assets/projects/bachelor/reviver-profile.png', alt: 'Profil med nivå' }]
       ]
     },
     featured: {

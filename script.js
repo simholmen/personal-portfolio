@@ -24,20 +24,33 @@
           // flattened into one image per slide so the arrows slide the window over
           // by a single image at a time (2nd image moves into the 1st spot, etc.)
           // rather than jumping a whole page of images at once
-          var flat = [].concat.apply([], m.pages);
-          var perPage = (m.pages[0] && m.pages[0].length) || 1;
+          var perPage = Math.max.apply(null, m.pages.map(function (p) { return p.length; }).concat(1));
           var isSingle = perPage <= 1;
-          var pages = flat.map(function (im) {
+          // an item alone on its page (in an otherwise 2-up gallery) gets a slide
+          // of its own spanning the whole box, e.g. the demo video before the pairs
+          var flat = [];
+          m.pages.forEach(function (p) {
+            p.forEach(function (im) { flat.push({ im: im, wide: p.length === 1 && perPage > 1 }); });
+          });
+          // a wide slide takes its height from the pair images, so they can't
+          // lazy-load while scrolled out of view behind it
+          var hasWide = flat.some(function (f) { return f.wide; });
+          var pages = flat.map(function (f) {
+            var im = f.im;
             var media = im.type === 'video'
-              ? '<video autoplay muted loop playsinline preload="metadata" aria-label="' + im.alt + '"><source src="' + im.src + '" type="video/mp4" /></video>'
-              : '<img alt="' + im.alt + '" loading="lazy" src="' + im.src + '" />';
-            return '<div class="fg-page">' + media + '</div>';
+              // width/height (when given) set the box's shape before the metadata loads
+              ? '<video autoplay muted loop playsinline preload="metadata" aria-label="' + im.alt + '"' + (im.width ? ' width="' + im.width + '" height="' + im.height + '"' : '') + '><source src="' + im.src + '" type="video/mp4" /></video>'
+              : '<img alt="' + im.alt + '"' + (hasWide ? '' : ' loading="lazy"') + ' src="' + im.src + '" />';
+            return '<div class="fg-page' + (f.wide ? ' fg-wide' : '') + '">' + media + '</div>';
           }).join('');
           // captions live in their own track, below the image stage, so the
           // arrows (overlaid on the stage) never sit on top of the text — and the
           // dots sit outside both, pinned to the bottom of the whole panel
-          var caps = flat.map(function (im) {
-            return '<div class="fg-cap-page"><span class="fg-caption">' + im.alt + '</span></div>';
+          var caps = flat.map(function (f) {
+            // a wide video speaks for itself, and dropping its caption leaves the
+            // whole slide to the video
+            var text = f.wide && f.im.type === 'video' ? '' : f.im.alt;
+            return '<div class="fg-cap-page' + (f.wide ? ' fg-wide' : '') + '"><span class="fg-caption">' + text + '</span></div>';
           }).join('');
           return '<div class="feat-media feat-gallery' + (isSingle ? ' fg-single' : '') + '" data-gallery data-per-page="' + perPage + '" style="--fg-visible:' + perPage + '">' +
             '<div class="fg-content-wrap">' +
@@ -709,6 +722,7 @@
       var i = 0;
       var perPage = basePerPage;
       var maxIndex = 0;
+      var slots = [];
       var dots = [];
       // on phones, a page normally showing 2 side-by-side screenshots is
       // collapsed to 1 full-width image at a time — 2-up doesn't leave enough
@@ -733,8 +747,10 @@
 
       function go(idx) {
         i = Math.max(0, Math.min(maxIndex, idx));
-        track.style.transform = 'translateX(' + (-i * (100 / perPage)) + '%)';
-        if (capTrack) capTrack.style.transform = 'translateX(' + (-i * (100 / perPage)) + '%)';
+        var offset = 0;
+        for (var k = 0; k < i; k++) offset += slots[k];
+        track.style.transform = 'translateX(' + (-offset * (100 / perPage)) + '%)';
+        if (capTrack) capTrack.style.transform = 'translateX(' + (-offset * (100 / perPage)) + '%)';
         dots.forEach(function (dot, k) {
           dot.classList.toggle('active', k === i);
           dot.setAttribute('aria-selected', k === i ? 'true' : 'false');
@@ -748,7 +764,17 @@
         perPage = forcedSingle ? 1 : basePerPage;
         gal.classList.toggle('fg-forced-single', forcedSingle);
         gal.style.setProperty('--fg-visible', perPage);
-        maxIndex = Math.max(0, total - perPage);
+        // a wide page fills every visible slot; stop on the last page that still
+        // leaves the window full (no empty space after the final image)
+        slots = Array.prototype.map.call(pages, function (p) {
+          return p.classList.contains('fg-wide') ? perPage : 1;
+        });
+        maxIndex = 0;
+        for (var s = 0, rest = 0; s < total; s++) rest += slots[s];
+        for (var j = 0; j < total; j++) {
+          if (rest >= perPage) maxIndex = j;
+          rest -= slots[j];
+        }
 
         if (dotsWrap) dotsWrap.innerHTML = '';
         dots = [];
@@ -775,6 +801,30 @@
       if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', layout);
       else if (mobileQuery.addListener) mobileQuery.addListener(layout);
       layout();
+
+      // a wide slide (the demo video) may spill out of the image stage into the
+      // panel's empty space above it and the caption row below it, so it can be
+      // as tall as the panel allows without cropping or resizing the box
+      var stage = gal.querySelector('.fg-stage');
+      if (stage && gal.querySelector('.fg-wide')) {
+        var sizeWide = function () {
+          if (gal.classList.contains('fg-pinned')) return;
+          var galBox = gal.getBoundingClientRect();
+          var stageBox = stage.getBoundingClientRect();
+          var bottomEdge = dotsWrap && !dotsWrap.hidden ? dotsWrap.getBoundingClientRect().top : galBox.bottom;
+          gal.style.setProperty('--fg-wide-up', Math.max(0, stageBox.top - galBox.top - 12) + 'px');
+          gal.style.setProperty('--fg-wide-down', Math.max(0, bottomEdge - 4 - stageBox.bottom) + 'px');
+        };
+        sizeWide();
+        if (window.ResizeObserver) {
+          // the panel's height comes from the text column next to it, which can
+          // still be settling (fonts loading) after the images are in
+          var ro = new ResizeObserver(sizeWide);
+          ro.observe(stage);
+          ro.observe(gal);
+        }
+        window.addEventListener('resize', sizeWide);
+      }
     }
     window.__initGallery = initGallery;
     (function () {

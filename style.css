@@ -956,6 +956,40 @@
       align-self: start;
     }
 
+    /* a slide of its own spanning the whole box (see renderFeatMedia) — the media
+       takes the full height of the image pairs (positioned out of flow so its own
+       aspect ratio doesn't make the box taller), uncropped and centered */
+    .fg-page.fg-wide,
+    .fg-cap-page.fg-wide {
+      width: 100%;
+    }
+
+    .fg-page.fg-wide {
+      position: relative;
+      align-self: stretch;
+    }
+
+    .fg-page.fg-wide img,
+    .fg-page.fg-wide video {
+      position: absolute;
+      /* reach into the panel's spare space above and below the stage — the
+         amounts are measured in initGallery (script.js) */
+      top: calc(-1 * var(--fg-wide-up, 0px));
+      left: 0;
+      right: 14px;
+      width: auto;
+      max-width: calc(100% - 14px);
+      height: calc(100% + var(--fg-wide-up, 0px) + var(--fg-wide-down, 0px));
+      margin: 0 auto;
+    }
+
+    /* clip only sideways (to hide the neighbouring slides), so the wide slide
+       can spill out above and below the stage */
+    .feat-gallery:has(.fg-wide) .fg-viewport {
+      overflow-x: clip;
+      overflow-y: visible;
+    }
+
     .fg-page img,
     .fg-page video {
       width: 100%;
@@ -1091,9 +1125,19 @@
 
     /* these images are tall phone-app screenshots — at full box width they read
        oversized once collapsed to one at a time, so shrink and center them */
-    .feat-gallery.fg-forced-single .fg-page img {
+    .feat-gallery.fg-forced-single .fg-page img,
+    .feat-gallery.fg-forced-single .fg-page video {
       width: 70%;
       margin: 0 auto;
+    }
+
+    /* the wide slide still fills the height down to the dots here (its width
+       follows from its own aspect ratio) — there's no 2-up gap to leave room for */
+    .feat-gallery.fg-forced-single .fg-page.fg-wide img,
+    .feat-gallery.fg-forced-single .fg-page.fg-wide video {
+      width: auto;
+      max-width: 100%;
+      right: 0;
     }
 
     /* featured project panel filled with a single photo */
