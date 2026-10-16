@@ -67,7 +67,12 @@ var PROJECTS = [
     ],
     links: [
       { label: 'Nettside', href: 'https://jobsearching-7e68e.web.app', external: true }
-    ]
+    ],
+    media: {
+      type: 'gallery', pages: [
+        [{ type: 'photo', src: 'assets/projects/sommerjobber/sommerjobber1.png', alt: 'I dag-visningen med frister og agenda' }],
+      ]
+    }
   },
   {
     id: 'geodata2026', title: 'Geodata sommerprosjekt 2026', school: false,
@@ -151,6 +156,11 @@ var PROJECTS = [
       { label: 'Kildekode', href: 'https://github.com/simholmen/turstilag', external: true },
       { label: 'Nettside', href: 'https://turstilag.vercel.app', external: true }
     ],
+    media: {
+      type: 'gallery', pages: [
+        [{ type: 'photo', src: 'assets/projects/algard/algard1.png', alt: 'Turrute rundt Yggen med kart og punkter underveis' }],
+      ]
+    },
   },
   {
     id: 'gjesdal', title: 'Praksis hos Gjesdal IL', school: true,
@@ -184,7 +194,12 @@ var PROJECTS = [
     links: [
       { label: 'Kildekode', href: 'https://github.com/simholmen/gruppecv', external: true },
       { label: 'Nettside', href: 'https://simholmen.github.io/gruppecv/', external: true }
-    ]
+    ],
+    media: {
+      type: 'gallery', pages: [
+        [{ type: 'photo', src: 'assets/projects/gruppecv/gruppecv1.png', alt: 'Forsiden til GitCommitted med gruppebilde' }],
+      ]
+    }
   },
   {
     id: 'padel', title: 'Padel-turnering', school: false,
@@ -194,10 +209,13 @@ var PROJECTS = [
     description: ['Dette sommerprosjektet gikk ut på å lage et Python-program for å håndtere logikken til en padel-turnering i amerikaner-format. Vi i NITO-studentene Kristiansand arrangerer turneringer i padel, og for å slippe å betale for en app eller et verktøy for å håndtere en turnering, kan vi like gjerne kode en selv. Programmet er bygd rundt egne Player- og Tournament-klasser: spiller 1 og 3 møter spiller 2 og 4 hver runde, og etter hver runde sorteres spillerne på nytt basert på poeng før de neste lagene settes sammen. Ved oddetall antall spillere håndteres det med walkover, og resultatene kan vises fortløpende eller når turneringen er ferdig.',
       'Det som var veldig kult med dette prosjektet var at jeg fikk brukt det jeg lærte på skolen til å gjøre noe gøy, og jeg har også fått testet den flere ganger når jeg har arrangert turneringer. Jeg har også fått gode tilbakemeldinger på formatet, men håper å oppdatere UI og frontend i fremtiden.'
     ],
-    links: [{ label: 'Kildekode', href: 'https://github.com/simholmen/padelpython', external: true }],
+    links: [
+      { label: 'Kildekode', href: 'https://github.com/simholmen/padelpython', external: true },
+      { label: 'Nettside', href: 'https://simholmen.github.io/padelpython/', external: true }
+    ],
     media: {
       type: 'gallery', pages: [
-        [{ type: 'photo', src: 'assets/personal/sommer2025-padel.jpg', alt: 'Padel-turnering' }],
+        [{ type: 'photo', src: 'assets/projects/padel/padel1.png', alt: 'Oppsett av turnering med spillere og baner' }],
       ]
     },
   },
